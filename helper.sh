@@ -168,6 +168,7 @@ otf2ttf() {
     local subset_otf="$1"
     local subset_ttf="$2"
     download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
+    echo "converting $subset_otf to $subset_ttf"
     python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
 }
 
@@ -233,7 +234,7 @@ create_cjk_unihan_core() {
                   --layout-features='*' --output-file="$subset_otf"
 
     echo "Generating font $subset_ttf. Current time: $(date)."
-    otf2ttf "$subset_otf" "$input_otf"
+    otf2ttf "$subset_otf" "$subset_ttf"
 
     cd "$OLDPWD"
 
@@ -289,7 +290,7 @@ _create_cjk_subset() {
                   --unicodes-file=Unihan_codepoints.txt --unicodes="$codepoints" \
                   --output-file="$subset_otf" "$input_otf"
 
-    otf2ttf "$subset_otf" "$input_otf"
+    otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
 
     cd "$OLDPWD"
@@ -330,7 +331,7 @@ _create_korean_hangul_subset() {
                   --unicodes="$codepoints" \
                   --output-file="$subset_otf" "$input_otf"
 
-    otf2ttf "$subset_otf" "$input_otf"
+    otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
 
     cd "$OLDPWD"
@@ -377,7 +378,7 @@ _create_japanese_kana_subset() {
                   --recommended-glyphs --passthrough-tables --layout-features="$features" \
                   --unicodes="$codepoints" --output-file="$subset_otf" "$input_otf"
 
-    otf2ttf "$subset_otf" "$input_otf"
+    otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKjp Subset" "NotoSansCJKjpSubset"
 
     cd "$OLDPWD"
