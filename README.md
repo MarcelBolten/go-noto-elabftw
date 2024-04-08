@@ -1,19 +1,16 @@
 # Go Noto Universal
 
-Noto Fonts go universal! Did you ever want "one font for all languages"? Download pan-Unicode, [Noto
-Fonts](https://github.com/googlefonts/noto-fonts) merged according to the time of usage (current,
-ancient) or geographical region (Africa-MiddleEast, Europe-Americas, South Asia, SE Asia).
+Noto Fonts go [eLabFTW](https://github.com/elabftw/elabftw)! For PDF creation in eLabFTW via mPDF we want to avoid reduantand glyphes as much as possible. Download pan-Unicode, [Noto
+Fonts](https://github.com/googlefonts/noto-fonts) merged according to the time of usage, current or
+ancient.
 
 We offer two types of combined fonts:
 
-1. Time-based:  
+1. Time-based:
    - **GoNotoKurrent** covers pretty much all the scripts in current, widespread use all over the
      world. This is designed to be a "good enough" font for modern, living scripts without being
      exhaustive.
    - **GoNotoAncient** covers all the historical, obsolete and liturgical scripts.
-2. Region-based:  
-   Choose a single font based on where you live or whichever region you're interested in:
-   Africa - Middle East, East Asia, Europe - Americas, South Asia or South East Asia.
 
 See [caveats](#caveats) too.
 
@@ -53,9 +50,9 @@ working state of the repository or downloading stuff again and again.
 
 Latest CI status:
 
-[![Regional fonts](https://github.com/satbyy/go-noto-universal/actions/workflows/regional_fonts.yml/badge.svg)](https://github.com/satbyy/go-noto-universal/actions/workflows/regional_fonts.yml)
+[![Regional fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml)
 
-[![Temporal fonts](https://github.com/satbyy/go-noto-universal/actions/workflows/temporal_fonts.yml/badge.svg)](https://github.com/satbyy/go-noto-universal/actions/workflows/temporal_fonts.yml)
+[![Temporal fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml)
 
 
 ## Dependencies
@@ -78,79 +75,11 @@ Temporal, i.e., time-based fonts are:
   are not used widely today. This font is probably useful for research or scholarly purposes or
   language enthusiasts. This font does not support any CJK.
 
-Each of these fonts includes Noto Sans (Regular), Noto Sans Symbols, Noto Sans Symbols 2, Noto Sans
-Math and Noto Music so that notations, symbols and emoji are not missed out.
-
-Serif variants of these are also included but their Unicode coverage is not as good as Sans Serif
-(lack of upstream Noto Serif fonts).
+Go Noto Current includes Noto Sans (Regular), Noto Sans Symbols, Noto Sans Symbols 2, a subset of Noto Sans
+Math and Noto Music so that notations, and symbols are not missed out.
 
 The exact fonts which are combined are too long to list here but can be seen from the source code.
 
-### Regional Fonts
-
-These fonts are merged/combined as per the regions defined in the [Unicode Standard
-(pdf)](https://www.unicode.org/versions/Unicode15.0.0/UnicodeStandard-15.0.pdf). Chapter numbers
-below refer to that spec.
-
-| Go Noto font               | Coverage                                                                                 |
-|----------------------------|------------------------------------------------------------------------------------------|
-| GoNotoEuropeAmericas.ttf   | "Europe" - ch. 7, 8, "Americas" - ch 20, "Notational Systems" - ch 21                    |
-| GoNotoAfricaMiddleEast.ttf | "Middle East" - ch. 9, 10, 11 and "Africa" - ch. 19                                      |
-| GoNotoSouthAsia.ttf        | "South and Central Asia" - ch. 12 and 13                                                 |
-| GoNotoAsiaHistorical.ttf   | "South and Central Asia" - ch. 14 and 15                                                 |
-| GoNotoSouthEastAsia.ttf    | "Southeast Asia" - ch. 16 and "Indonesia and the Philippines" - ch 17                    |
-| GoNotoCJKCore.ttf          | [UnihanCore2020][3] subset of CJK (~20K ideographs). Use [Noto CJK][2] for full coverage |
-| GoNotoEastAsia.ttf         | "East Asia" - ch 18. everything other than Han (CJK)                                     |
-
-Each of the above fonts includes LGC (Latin-Greek-Cyrillic) as default, same coverage as `Noto Sans
-Regular`. Each one also includes Noto Sans Math, Noto Music, Noto Sans Symbols and Noto Sans Symbols
-2 to give you bonus coverage of beautiful notations, symbols and emoji :)
-
-### Go Noto South Asia
-
-Following are included: Bengali, Chakma, Devanagari (Hindi, Marathi, Nepali, etc), Gondi, Gujarati,
-Gunjala Gondi, Gurmukhi, Kannada, Lepcha, Limbu, Malayalam, Masaram Gondi, Meetei Mayek, Mro,
-Nag Mundari, Newa, Ol Chiki, Oriya, Punjabi (Gurmukhi), Saurashtra, Sinhala, Tamil, Tangsa, Telugu,
-Thaana, Tibetan, Toto, Wancho, Warang Citi.
-
-Urdu (Noto Naskh Arabic), though not written in an Indic script and not part of "South Asia"
-chapters in the Unicode spec, is included for practical reasons. Noto Nastaliq Urdu would be more
-appropriate but it is too big to fit in the merged font.
-
-### Go Noto Asia Historical
-
-Following are included: Ahom, Bhaiksuki, Brahmi, Dives Akuru, Dogra, Grantha, Indic Siyaq Numbers,
-Kaithi, Kharoshthi, Khojki, Khudawadi, Mahajani, Makasar, Modi, Multani, Nag Mundari, Nandinagari,
-Old Sogdian, Old Turkic, Old Uyghur, Ottoman Siyaq Numbers, Phags-Pa, Sharada, Siddham, Sogdian,
-Sora Sompeng, Soyombo, Syloti Nagri, Takri, Tirhuta, Zanabazar Square.
-
-### Go Noto South East Asia
-
-Following are included: Balinese, Batak, Buginese, Buhid, Cham, Hanifi Rohingya, Hanunóo, Javanese,
-Kayah Li, Kawi, Khmer, Lao, Makasar, Myanmar, New Tai Lue, Nyiakeng Puache Hmong, Pahawh Hmong, Pau
-Cin Hau, Rejang, Sundanese, Tagalog, Tagbanwa, Tai Le, Tai Tham, Tai Viet, Thai.
-
-### Go Noto Europe Americas
-
-Everything covered by NotoSans (Latin-Greek-Cyrillic etc.) plus Anatolian Hieroglyphics, Armenian,
-Braille, Canadian Aboriginal, Carian, Caucasian Albanian, Cherokee, Coptic, Cypriot, Deseret,
-Duployan, Elbasan, Georgian, Glagolitic, Gothic, Linear A, Linear B, Lycian, Lydian, Mayan Numerals,
-Nyiakeng Puachue Hmong, Ogham, Old Hungarian, Old Italic, Old Permic, Osage, Runic, Shavian, Sutton
-Sign Writing, Vithkuqi.
-
-### Go Noto Africa Middle East
-
-The following are included: Adlam, Anatolian Hieroglyphics, Arabic (Naskh-style), Avestan, Bamum,
-Bassa Vah, Chorasmian, Cuneiform, Egyptian, Elymaic, Ethiopic, Hatran, Hebrew, Imperial Aramaic,
-Inscriptional Pahlavi, Inscriptional Parthian, Mandaic, Manichaean, Medefaidrin, Mende Kikakui,
-Meroitic, Nabataean, N'Ko, Old North Arabian, Old Persian, Old South Arabian, Osmanya, Palmyrene,
-Phoenician, Psalter Pahlavi, Samaritan, Sumero-Akkadian, Syriac, Tifinagh, Ugaritic, Vai, Yezidi.
-
-### Go Noto East Asia
-
-Bopomofo, Hangul, Hiragana and Katakana, Khitan Small Script, Lisu, Marchen, Miao, Mongolian,
-Nüshu, Tangut, Tibetan, Yi, etc. excluding Han/CJK (Chinese-Japanese-Korean). Vertical text
-writing is not supported.
 
 ### Go Noto CJK Core
 

@@ -17,10 +17,12 @@ mkdir -p cache/
 create_cjk_subset
 create_duployan_subset
 create_japanese_kana_subset
-create_korean_hangul_subset
+create_korean_hangul_subset_and_full
 create_math_subset
 create_tibetan_subset
-create_go_noto_current_with_full_korean
+
+# declare GoNotoKurrentRegular and GoNotoKurrentBold categories
+declare_go_noto_kurrent_categories
 
 drop_vertical_tables NotoSansMongolian-Regular.ttf
 drop_vertical_tables NotoSansNushu-Regular.ttf
@@ -32,9 +34,11 @@ go_build GoNotoCurrent-Regular.ttf "${GoNotoCurrentRegular[@]}"
 echo "Generating GoNotoCurrent-Bold.ttf. Current time: $(date)."
 go_build GoNotoCurrent-Bold.ttf "${GoNotoCurrentBold[@]}"
 
+# Korean but no Symbols, Math, Music
 echo "Generating GoNotoKurrent-Regular.ttf. Current time: $(date)."
 go_build GoNotoKurrent-Regular.ttf "${GoNotoKurrentRegular[@]}"
 
+# Korean but no Symbols, Math, Music
 echo "Generating GoNotoKurrent-Bold.ttf. Current time: $(date)."
 go_build GoNotoKurrent-Bold.ttf "${GoNotoKurrentBold[@]}"
 
@@ -46,9 +50,11 @@ echo "Generating GoNotoAncient.ttf. Current time: $(date)."
 go_build GoNotoAncient.ttf "${GoNotoAncient[@]}"
 
 # GoNotoCurrentSerif.ttf
-echo "Generating GoNotoCurrentSerif.ttf. Current time: $(date)."
-go_build GoNotoCurrentSerif.ttf "${GoNotoCurrentSerif[@]}"
+#echo "Generating GoNotoCurrentSerif.ttf. Current time: $(date)."
+#go_build GoNotoCurrentSerif.ttf "${GoNotoCurrentSerif[@]}"
 
 # GoNotoAncientSerif.ttf
-echo "Generating GoNotoAncientSerif.ttf. Current time: $(date)."
-go_build GoNotoAncientSerif.ttf "${GoNotoAncientSerif[@]}"
+#echo "Generating GoNotoAncientSerif.ttf. Current time: $(date)."
+#go_build GoNotoAncientSerif.ttf "${GoNotoAncientSerif[@]}"
+
+create_cjk_unihan_core

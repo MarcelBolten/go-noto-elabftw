@@ -163,6 +163,14 @@ create_math_subset() {
     cd "$OLDPWD"
 }
 
+# convert otf to ttf
+otf2ttf() {
+    local subset_otf="$1"
+    local subset_ttf="$2"
+    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
+    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
+}
+
 # Unihan IICore 2005 is a small subset of CJK (~10k codepoints).
 # Recently it has been superseded by UnihanCore2020, which is double in size.
 create_cjk_unihan_core() {
@@ -224,17 +232,12 @@ create_cjk_unihan_core() {
                   --recommended-glyphs --passthrough-tables --glyph-names \
                   --layout-features='*' --output-file="$subset_otf"
 
-    # convert otf to ttf
     echo "Generating font $subset_ttf. Current time: $(date)."
-    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
-    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
+    otf2ttf "$subset_otf" "$input_otf"
 
     cd "$OLDPWD"
 
-    go_build "$output_font" \
-             NotoSans-Regular.ttf "$subset_ttf" NotoMusic-Regular.ttf \
-             NotoSansSymbols-Regular.ttf NotoSansSymbols2-Regular.ttf \
-             NotoSansMathSubset-Regular.ttf
+    go_build "$output_font" NotoSans-Regular.ttf "$subset_ttf"
 }
 
 _create_cjk_subset() {
@@ -244,8 +247,8 @@ _create_cjk_subset() {
     local codepoints=""
     local features=""
 
-#    codepoints+="U+2E80-2EFF,"   # CJK radicals supplement
-#    codepoints+="U+2F00-2FD5,"   # Kangxi radicals
+    # codepoints+="U+2E80-2EFF,"   # CJK radicals supplement
+    # codepoints+="U+2F00-2FD5,"   # Kangxi radicals
     codepoints+="U+3000-303F,"   # CJK symbols and punctuation
     codepoints+="U+3100-312F,"   # Bopomofo
     codepoints+="U+31A0-31BF,"   # Bopomofo extended
@@ -286,9 +289,7 @@ _create_cjk_subset() {
                   --unicodes-file=Unihan_codepoints.txt --unicodes="$codepoints" \
                   --output-file="$subset_otf" "$input_otf"
 
-    # convert otf to ttf
-    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
-    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
+    otf2ttf "$subset_otf" "$input_otf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
 
     cd "$OLDPWD"
@@ -314,11 +315,10 @@ _create_korean_hangul_subset() {
     codepoints+="U+1100-11FF," # Hangul jamo
     codepoints+="U+3130-318F," # Hangul compatibility jamo
     codepoints+="U+A960-A97F," # Hangul jamo extended-A
-    codepoints+="U+D7B0-D7FF," # Hangul jamo extended-B
-
     if [[ "$is_subset" == "Full" ]]; then
         codepoints+="U+AC00-D7AF,"   # Hangul syllables
     fi
+    codepoints+="U+D7B0-D7FF," # Hangul jamo extended-B
 
     cd cache/
 
@@ -330,16 +330,13 @@ _create_korean_hangul_subset() {
                   --unicodes="$codepoints" \
                   --output-file="$subset_otf" "$input_otf"
 
-    # convert otf to ttf
-    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
-    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
-
-    python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKkr Subset" "NotoSansCJKkrSubset"
+    otf2ttf "$subset_otf" "$input_otf"
+    python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
 
     cd "$OLDPWD"
 }
 
-create_korean_hangul_subset() {
+create_korean_hangul_subset_and_full() {
     _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Subset"
     _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Subset"
 
@@ -380,10 +377,7 @@ _create_japanese_kana_subset() {
                   --recommended-glyphs --passthrough-tables --layout-features="$features" \
                   --unicodes="$codepoints" --output-file="$subset_otf" "$input_otf"
 
-    # convert otf to ttf
-    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
-    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
-
+    otf2ttf "$subset_otf" "$input_otf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKjp Subset" "NotoSansCJKjpSubset"
 
     cd "$OLDPWD"
@@ -394,7 +388,7 @@ create_japanese_kana_subset() {
     _create_japanese_kana_subset NotoSansCJKjp-Bold.otf
 }
 
-_create_go_noto_current_with_full_korean() {
+_declare_go_noto_kurrent_category() {
     local weight="$1"
     local input=("${@:2}")  # list of fonts
 
@@ -420,9 +414,9 @@ _create_go_noto_current_with_full_korean() {
     fi
 }
 
-create_go_noto_current_with_full_korean() {
-  _create_go_noto_current_with_full_korean Regular "${GoNotoCurrentRegular[@]}"
-  _create_go_noto_current_with_full_korean Bold "${GoNotoCurrentBold[@]}"
+declare_go_noto_kurrent_categories() {
+  _declare_go_noto_kurrent_category Regular "${GoNotoCurrentRegular[@]}"
+  _declare_go_noto_kurrent_category Bold "${GoNotoCurrentBold[@]}"
 }
 
 # Indosphere combines South Asia, S.E.Asia and Asia-Historical
