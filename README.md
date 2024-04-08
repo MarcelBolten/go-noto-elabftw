@@ -6,12 +6,12 @@ ancient) or geographical region (Africa-MiddleEast, Europe-Americas, South Asia,
 
 We offer two types of combined fonts:
 
-1. Time-based:  
+1. Time-based:
    - **GoNotoKurrent** covers pretty much all the scripts in current, widespread use all over the
      world. This is designed to be a "good enough" font for modern, living scripts without being
      exhaustive.
    - **GoNotoAncient** covers all the historical, obsolete and liturgical scripts.
-2. Region-based:  
+2. Region-based:
    Choose a single font based on where you live or whichever region you're interested in:
    Africa - Middle East, East Asia, Europe - Americas, South Asia or South East Asia.
 
@@ -19,13 +19,13 @@ See [caveats](#caveats) too.
 
 ## Download
 
-If you simply want to _use_ the fonts, go to [Releases page](https://github.com/satbyy/go-noto-universal/releases/)
+If you simply want to _use_ the fonts, go to [Releases page](https://github.com/MarcelBolten/go-noto-elabftw/releases/)
 and download what you need. If you're unsure what to download, you probably need
 GoNotoKurrent-Regular.ttf[^1]. If you want better support for emoji and symbols, try
 GoNotoCurrent-Regular.ttf. A **bold** variant of the font is also available (-Bold.ttf).
 
 Development builds are available from [GitHub
-Actions](https://github.com/satbyy/go-noto-universal/actions) page. Click on any workflow with green
+Actions](https://github.com/MarcelBolten/go-noto-elabftw/actions) page. Click on any workflow with green
 checkmark ✅ (pipeline passed) and under "Artifacts", download "GoNotoTemporalFonts.zip" and
 "GoNotoRegionalFonts.zip" (login required).
 
@@ -53,9 +53,9 @@ working state of the repository or downloading stuff again and again.
 
 Latest CI status:
 
-[![Regional fonts](https://github.com/satbyy/go-noto-universal/actions/workflows/regional_fonts.yml/badge.svg)](https://github.com/satbyy/go-noto-universal/actions/workflows/regional_fonts.yml)
+[![Regional fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml)
 
-[![Temporal fonts](https://github.com/satbyy/go-noto-universal/actions/workflows/temporal_fonts.yml/badge.svg)](https://github.com/satbyy/go-noto-universal/actions/workflows/temporal_fonts.yml)
+[![Temporal fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml)
 
 
 ## Dependencies
