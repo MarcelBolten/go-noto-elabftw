@@ -1,4 +1,4 @@
-# Go Noto Universal
+# Go Noto eLabFTW
 
 Noto Fonts go [eLabFTW](https://github.com/elabftw/elabftw)! For PDF creation in eLabFTW via mPDF we want to avoid reduantand glyphes as much as possible. Download pan-Unicode, [Noto
 Fonts](https://github.com/googlefonts/noto-fonts) merged according to the time of usage, current or
