@@ -40,12 +40,15 @@ for record in font['name'].names:
     elif record.nameID == 6: # postscript name
         record.string = new_postscript_name.encode(encoding)
     elif record.nameID == 10: # description
-        record.string = (description +
-                         " The Go Noto Universal project merged many upstream Noto Fonts to produce this font."
-                        ).encode(encoding)
+        record.string = (
+            description
+            + " The Go Noto Universal project merged many upstream Noto Fonts to produce this font."
+        ).encode(encoding)
     elif record.nameID == 11: # vendor URL
-        record.string = ("https://github.com/satbyy/go-noto-universal/tree/" +
-                         git_hash()).encode(encoding)
+        record.string = (
+            "https://github.com/MarcelBolten/go-noto-elabftw/tree/"
+            + git_hash()
+        ).encode(encoding)
 
 font.save(fontname)
 font.close()

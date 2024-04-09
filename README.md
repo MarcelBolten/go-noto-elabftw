@@ -16,13 +16,13 @@ See [caveats](#caveats) too.
 
 ## Download
 
-If you simply want to _use_ the fonts, go to [Releases page](https://github.com/satbyy/go-noto-universal/releases/)
+If you simply want to _use_ the fonts, go to [Releases page](https://github.com/MarcelBolten/go-noto-elabftw/releases/)
 and download what you need. If you're unsure what to download, you probably need
 GoNotoKurrent-Regular.ttf[^1]. If you want better support for emoji and symbols, try
 GoNotoCurrent-Regular.ttf. A **bold** variant of the font is also available (-Bold.ttf).
 
 Development builds are available from [GitHub
-Actions](https://github.com/satbyy/go-noto-universal/actions) page. Click on any workflow with green
+Actions](https://github.com/MarcelBolten/go-noto-elabftw/actions) page. Click on any workflow with green
 checkmark ✅ (pipeline passed) and under "Artifacts", download "GoNotoTemporalFonts.zip" and
 "GoNotoRegionalFonts.zip" (login required).
 

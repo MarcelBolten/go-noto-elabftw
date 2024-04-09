@@ -18,29 +18,36 @@ create_cjk_subset
 create_duployan_subset
 create_japanese_kana_subset
 create_korean_hangul_subset_and_full
-create_math_subset
+#create_math_subset
 create_tibetan_subset
 
 # declare GoNotoKurrentRegular and GoNotoKurrentBold categories
-declare_go_noto_kurrent_categories
+#declare_go_noto_kurrent_categories
 
 drop_vertical_tables NotoSansMongolian-Regular.ttf
 drop_vertical_tables NotoSansNushu-Regular.ttf
 drop_vertical_tables NotoTraditionalNushu-Bold.ttf
 
-echo "Generating GoNotoCurrent-Regular.ttf. Current time: $(date)."
-go_build GoNotoCurrent-Regular.ttf "${GoNotoCurrentRegular[@]}"
+echo "Generating GoNotoCurrent-Regular1.ttf. Current time: $(date)."
+go_build GoNotoCurrent-Regular1.ttf "${GoNotoCurrentRegular1[@]}"
 
-echo "Generating GoNotoCurrent-Bold.ttf. Current time: $(date)."
-go_build GoNotoCurrent-Bold.ttf "${GoNotoCurrentBold[@]}"
+echo "Generating GoNotoCurrent-Regular2.ttf. Current time: $(date)."
+go_build GoNotoCurrent-Regular2.ttf "${GoNotoCurrentRegular2[@]}"
+
+
+echo "Generating GoNotoCurrent-Bold1.ttf. Current time: $(date)."
+go_build GoNotoCurrent-Bold1.ttf "${GoNotoCurrentBold1[@]}"
+
+echo "Generating GoNotoCurrent-Bold2.ttf. Current time: $(date)."
+go_build GoNotoCurrent-Bold2.ttf "${GoNotoCurrentBold2[@]}"
 
 # Korean but no Symbols, Math, Music
-echo "Generating GoNotoKurrent-Regular.ttf. Current time: $(date)."
-go_build GoNotoKurrent-Regular.ttf "${GoNotoKurrentRegular[@]}"
+#echo "Generating GoNotoKurrent-Regular.ttf. Current time: $(date)."
+#go_build GoNotoKurrent-Regular.ttf "${GoNotoKurrentRegular[@]}"
 
 # Korean but no Symbols, Math, Music
-echo "Generating GoNotoKurrent-Bold.ttf. Current time: $(date)."
-go_build GoNotoKurrent-Bold.ttf "${GoNotoKurrentBold[@]}"
+#echo "Generating GoNotoKurrent-Bold.ttf. Current time: $(date)."
+#go_build GoNotoKurrent-Bold.ttf "${GoNotoKurrentBold[@]}"
 
 # GoNotoAncient.ttf
 drop_vertical_tables NotoSerifDogra-Regular.ttf

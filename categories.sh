@@ -3,7 +3,10 @@ set -e
 
 # export these variables
 declare -x GoNotoAncient
-declare -x GoNotoCurrentRegular
+declare -x GoNotoCurrentRegular1
+declare -x GoNotoCurrentRegular2
+declare -x GoNotoCurrentBold1
+declare -x GoNotoCurrentBold2
 #declare -x GoNotoCurrentSerif
 #declare -x GoNotoAncientSerif
 
@@ -104,7 +107,7 @@ GoNotoAncient=(
     # "NotoMusic-Regular.ttf"
 )
 
-GoNotoCurrentRegular=(
+GoNotoCurrentRegular1=(
     # It's recommended to put NotoSans-Regular.ttf as the first element in the
     # list to maximize the amount of meta data retained in the final merged font.
     # ------- South Asia ---------
@@ -136,6 +139,39 @@ GoNotoCurrentRegular=(
     "NotoSerifToto-Regular.ttf"
     "NotoSansWancho-Regular.ttf"
     "NotoSansWarangCiti-Regular.ttf"
+    # 'GoNotoEuropeAmericas.ttf': [
+    "NotoSansArmenian-Regular.ttf"
+    "NotoSansCherokee-Regular.ttf"
+    "NotoSansCoptic-Regular.ttf"
+    "NotoSansDeseret-Regular.ttf"
+    "NotoSansGeorgian-Regular.ttf"
+    "NotoSansOsage-Regular.ttf"
+    # 'GoNotoAfricaMiddleEast.ttf': [
+    "NotoSansAdlam-Regular.ttf"
+    "NotoSansBassaVah-Regular.ttf"
+    "NotoSansHebrew-Regular.ttf"
+    "NotoSansSyriac-Regular.ttf"
+    "NotoSansSamaritan-Regular.ttf"
+    "NotoSansMandaic-Regular.ttf"
+    "NotoSerifYezidi-Regular.ttf"
+    "NotoSansEthiopic-Regular.ttf"
+    "NotoSansOsmanya-Regular.ttf"
+    "NotoSansTifinagh-Regular.ttf"
+    "NotoSansNKo-Regular.ttf"
+    "NotoSansVai-Regular.ttf"
+    "NotoSansMendeKikakui-Regular.ttf"
+    "NotoSansMedefaidrin-Regular.ttf"
+    # Common for all scripts
+    "NotoSansSymbols-Regular.ttf"
+    "NotoSansSymbols2-Regular.ttf"
+    "NotoSansMath-Regular.ttf"
+    "NotoMusic-Regular.ttf"
+)
+
+GoNotoCurrentRegular2=(
+    # It's recommended to put NotoSans-Regular.ttf as the first element in the
+    # list to maximize the amount of meta data retained in the final merged font.
+    "NotoSans-Regular.ttf"
     # SE Asia
     "NotoSansBalinese-Regular.ttf"
     "NotoSansBatak-Regular.ttf"
@@ -161,44 +197,17 @@ GoNotoCurrentRegular=(
     "NotoSansTaiViet-Regular.ttf"
     "NotoSansThai-Regular.ttf"
     "NotoSansLisu-Regular.ttf"
-    # 'GoNotoEuropeAmericas.ttf': [
-    "NotoSansArmenian-Regular.ttf"
-    "NotoSansCherokee-Regular.ttf"
-    "NotoSansCoptic-Regular.ttf"
-    "NotoSansDeseret-Regular.ttf"
-    "NotoSansGeorgian-Regular.ttf"
-    "NotoSansOsage-Regular.ttf"
-    # 'GoNotoAfricaMiddleEast.ttf': [
-    "NotoSansAdlam-Regular.ttf"
-    "NotoSansBassaVah-Regular.ttf"
-    "NotoSansHebrew-Regular.ttf"
-    "NotoSansSyriac-Regular.ttf"
-    "NotoSansSamaritan-Regular.ttf"
-    "NotoSansMandaic-Regular.ttf"
-    "NotoSerifYezidi-Regular.ttf"
-    "NotoSansEthiopic-Regular.ttf"
-    "NotoSansOsmanya-Regular.ttf"
-    "NotoSansTifinagh-Regular.ttf"
-    "NotoSansNKo-Regular.ttf"
-    "NotoSansVai-Regular.ttf"
-    "NotoSansMendeKikakui-Regular.ttf"
-    "NotoSansMedefaidrin-Regular.ttf"
     # 'GoNotoEastAsia.ttf': [
     "NotoSansCJKjpSubset-Regular.ttf"
-    "NotoSansCJKkrSubset-Regular.ttf"
+    "NotoSansCJKkrFull-Regular.ttf"
     "NotoSansCJKscSubset-Regular.ttf"
     "NotoSansMongolianSubset-Regular.ttf"
     "NotoSansYi-Regular.ttf"
     "NotoSansNushuSubset-Regular.ttf" # Not exactly contemporary use but just 402 glyphs
     "NotoSansMiao-Regular.ttf"
-    # Common for all scripts
-    "NotoSansSymbols-Regular.ttf"
-    "NotoSansSymbols2-Regular.ttf"
-    "NotoSansMathSubset-Regular.ttf"
-    "NotoMusic-Regular.ttf"
 )
 
-GoNotoCurrentBold=(
+GoNotoCurrentBold1=(
     # It's recommended to put NotoSans-Bold.ttf as the first element in the
     # list to maximize the amount of meta data retained in the final merged font.
     # ------- South Asia ---------
@@ -230,6 +239,39 @@ GoNotoCurrentBold=(
     "NotoSerifToto-Bold.ttf"
     "NotoSansWancho-Regular.ttf" # No bold
     "NotoSansWarangCiti-Regular.ttf" # No bold
+    # 'GoNotoEuropeAmericas.ttf': [
+    "NotoSansArmenian-Bold.ttf"
+    "NotoSansCherokee-Bold.ttf"
+    "NotoSansCoptic-Regular.ttf" # No bold
+    "NotoSansDeseret-Regular.ttf" # No bold
+    "NotoSansGeorgian-Bold.ttf"
+    "NotoSansOsage-Regular.ttf" # No bold
+    # 'GoNotoAfricaMiddleEast.ttf': [
+    "NotoSansAdlam-Bold.ttf"
+    "NotoSansBassaVah-Bold.ttf"
+    "NotoSansHebrew-Bold.ttf"
+    "NotoSansSyriac-Black.ttf"
+    "NotoSansSamaritan-Regular.ttf" # No bold
+    "NotoSansMandaic-Regular.ttf" # No bold
+    "NotoSerifYezidi-Bold.ttf"
+    "NotoSansEthiopic-Bold.ttf"
+    "NotoSansOsmanya-Regular.ttf" # No bold
+    "NotoSansTifinagh-Regular.ttf" # No bold
+    "NotoSansNKoUnjoined-Bold.ttf"
+    "NotoSansVai-Regular.ttf" # No bold
+    "NotoSansMendeKikakui-Regular.ttf" # No bold
+    "NotoSansMedefaidrin-Bold.ttf"
+    # Common for all scripts
+    "NotoSansSymbols-Bold.ttf"
+    "NotoSansSymbols2-Regular.ttf" # No bold
+    "NotoSansMath-Regular.ttf" # No bold
+    "NotoMusic-Regular.ttf" # No bold
+)
+
+GoNotoCurrentBold2=(
+    # It's recommended to put NotoSans-Bold.ttf as the first element in the
+    # list to maximize the amount of meta data retained in the final merged font.
+    "NotoSans-Bold.ttf"
     # SE Asia
     "NotoSansBalinese-Bold.ttf"
     "NotoSansBatak-Regular.ttf" # No bold
@@ -255,41 +297,14 @@ GoNotoCurrentBold=(
     "NotoSansTaiViet-Regular.ttf" # No bold
     "NotoSansThai-Bold.ttf"
     "NotoSansLisu-Bold.ttf"
-    # 'GoNotoEuropeAmericas.ttf': [
-    "NotoSansArmenian-Bold.ttf"
-    "NotoSansCherokee-Bold.ttf"
-    "NotoSansCoptic-Regular.ttf" # No bold
-    "NotoSansDeseret-Regular.ttf" # No bold
-    "NotoSansGeorgian-Bold.ttf"
-    "NotoSansOsage-Regular.ttf" # No bold
-    # 'GoNotoAfricaMiddleEast.ttf': [
-    "NotoSansAdlam-Bold.ttf"
-    "NotoSansBassaVah-Bold.ttf"
-    "NotoSansHebrew-Bold.ttf"
-    "NotoSansSyriac-Black.ttf"
-    "NotoSansSamaritan-Regular.ttf" # No bold
-    "NotoSansMandaic-Regular.ttf" # No bold
-    "NotoSerifYezidi-Bold.ttf"
-    "NotoSansEthiopic-Bold.ttf"
-    "NotoSansOsmanya-Regular.ttf" # No bold
-    "NotoSansTifinagh-Regular.ttf" # No bold
-    "NotoSansNKoUnjoined-Bold.ttf"
-    "NotoSansVai-Regular.ttf" # No bold
-    "NotoSansMendeKikakui-Regular.ttf" # No bold
-    "NotoSansMedefaidrin-Bold.ttf"
     # 'GoNotoEastAsia.ttf': [
     "NotoSansCJKjpSubset-Bold.ttf"
-    "NotoSansCJKkrSubset-Bold.ttf"
+    "NotoSansCJKkrFull-Bold.ttf"
     "NotoSansCJKscSubset-Bold.ttf"
     "NotoSansMongolianSubset-Regular.ttf" # No bold
     "NotoSansYi-Regular.ttf" # No bold
     "NotoTraditionalNushuSubset-Bold.ttf" # Not exactly contemporary use but just 402 glyphs
     "NotoSansMiao-Regular.ttf" # No bold
-    # Common for all scripts
-    "NotoSansSymbols-Bold.ttf"
-    "NotoSansSymbols2-Regular.ttf" # No bold
-    "NotoSansMathSubset-Regular.ttf" # No bold
-    "NotoMusic-Regular.ttf" # No bold
 )
 
 # GoNotoAfricaMiddleEast=(

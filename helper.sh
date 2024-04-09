@@ -224,7 +224,8 @@ create_cjk_unihan_core() {
         printf "U+%X\n" "$code"
     done >> "$subset_codepoints"
 
-    sort --unique --output="$subset_codepoints" "$subset_codepoints"
+    cat "$subset_codepoints" | sort | uniq > "$subset_codepoints"
+
     download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/$input_font"
 
     echo "Generating font $subset_otf. Current time: $(date)."
@@ -450,9 +451,7 @@ go_build() {
     fi
 
     # remove duplicates
-    local sorted=($(printf "%s\n" "${input[@]}" \
-                       | LC_ALL=C sort --unique \
-                       | tr '\n' ' '))
+    local sorted=($(printf "%s\n" "${input[@]}" | LC_ALL=C sort | uniq | tr '\n' ' '))
 
     if [[ "${#input[@]}" -gt "${#sorted[@]}" ]]; then
         echo "ERROR: input list of fonts contains duplicates, len ${#input[@]} > ${#sorted[@]}"
