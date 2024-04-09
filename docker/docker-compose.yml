@@ -1,0 +1,14 @@
+
+version: '3.8'
+services:
+  python:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: python:go-noto-elabftw
+    container_name: python
+    restart: always
+    volumes:
+      - type: bind
+        source: ../
+        target: /go-noto-elabftw
