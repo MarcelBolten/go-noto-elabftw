@@ -1,0 +1,15 @@
+{
+    "name": "marcelbolten/go-noto-elabftw",
+    "type": "library",
+    "description": "Noto Font for eLabFTW",
+    "keywords": ["eLabFTW","Noto","Font","electronic lab notebook","ELN"],
+    "homepage": "https://github.com/marcelbolten/go-noto-elabftw",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcel Bolten",
+            "email": "github@marcelbolten.de",
+            "role": "Developer"
+        }
+    ]
+}
