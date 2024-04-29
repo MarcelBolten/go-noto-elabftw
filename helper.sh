@@ -21,8 +21,8 @@ download_url() {
 
 download_tools() {
     cd cache/
-    download_url "https://github.com/notofonts/nototools/tree/main/nototools/substitute_linemetrics.py"
-    download_url "https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py"
+    download_url "https://raw.githubusercontent.com/notofonts/nototools/main/nototools/substitute_linemetrics.py"
+    download_url "https://raw.githubusercontent.com/fonttools/fonttools/main/Snippets/otf2ttf.py"
     cd "$OLDPWD"
 }
 
