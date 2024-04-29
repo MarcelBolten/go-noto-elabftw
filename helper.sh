@@ -79,7 +79,6 @@ create_duployan_subset() {
     local input_font=NotoSansDuployan-Regular.ttf
     local output_font="${input_font/-/Subset-}"
     local include_regex='^[^_]\|^_u1BC9D\.dtls$'
-    local exclude_regex='^u1BC7[0-7]\..*\.'
 
     cd cache/
 
@@ -91,7 +90,6 @@ create_duployan_subset() {
         "$VIRTUAL_ENV"/bin/ttx -o - -q -t GlyphOrder "$input_font" \
                       | grep '<GlyphID ' | cut -f4 -d'"' \
                       | grep "$include_regex" \
-                      | grep -v  "$exclude_regex" \
                       > "$glyphs_file"
         "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --notdef-outline \
                       --layout-features+=subs,sups --layout-features-=curs,rclt \
