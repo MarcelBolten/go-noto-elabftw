@@ -36,14 +36,14 @@ jobs:
 
       - name: Create temporal fonts
         run: |
-            python3 -m venv venv
-            source venv/bin/activate
+            python3 -m venv venv_fonty
+            source venv_fonty/bin/activate
             ./temporal_fonts.sh
             deactivate
 
       - name: Collect font statistics
         run: |
-            source venv/bin/activate
+            source venv_fonty/bin/activate
             source helper.sh
             collect_font_statistics > stats_temporal_fonts.tsv
             deactivate
