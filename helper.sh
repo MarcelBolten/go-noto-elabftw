@@ -19,6 +19,14 @@ download_url() {
     fi
 }
 
+download_tools()
+{
+    cd cache/
+    download_url "https://github.com/notofonts/nototools/tree/main/nototools/substitute_linemetrics.py"
+    download_url "https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py"
+    cd "$OLDPWD"
+}
+
 # Rename font metadata
 edit_font_info() {
     local fontname="$1"
@@ -167,7 +175,6 @@ create_math_subset() {
 otf2ttf() {
     local subset_otf="$1"
     local subset_ttf="$2"
-    download_url https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py
     echo "converting $subset_otf to $subset_ttf"
     python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
 }
@@ -470,7 +477,6 @@ go_build() {
          --verbose --output-file=../"$output" "${input[@]}"
 
     # Copy line metrics from Noto Sans Regular
-    download_url "https://github.com/googlefonts/nototools/raw/main/nototools/substitute_linemetrics.py"
     python3 ./substitute_linemetrics.py --output=../"$output" \
             ../"$output" NotoSans-Regular.ttf
 
