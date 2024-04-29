@@ -41,6 +41,20 @@ go_build GoNotoCurrent-Bold1.ttf "${GoNotoCurrentBold1[@]}"
 echo "Generating GoNotoCurrent-Bold2.ttf. Current time: $(date)."
 go_build GoNotoCurrent-Bold2.ttf "${GoNotoCurrentBold2[@]}"
 
+echo "Generating GoNotoCurrentMono.ttf. Current time: $(date)."
+go_build GoNotoCurrentMono.ttf "${GoNotoCurrentMono[@]}" &
+
+echo "Generating GoNotoCurrentMonoBold.ttf. Current time: $(date)."
+go_build GoNotoCurrentMonoBold.ttf "${GoNotoCurrentMonoBold[@]}" &
+
+echo "Generating GoNotoCurrentItalic.ttf. Current time: $(date)."
+go_build GoNotoCurrentItalic.ttf "${GoNotoCurrentItalic[@]}" &
+
+echo "Generating GoNotoCurrentBoldItalic.ttf. Current time: $(date)."
+go_build GoNotoCurrentBoldItalic.ttf "${GoNotoCurrentBoldItalic[@]}" &
+
+wait
+
 # Korean but no Symbols, Math, Music
 #echo "Generating GoNotoKurrent-Regular.ttf. Current time: $(date)."
 #go_build GoNotoKurrent-Regular.ttf "${GoNotoKurrentRegular[@]}"
@@ -59,6 +73,14 @@ go_build GoNotoAncient.ttf "${GoNotoAncient[@]}"
 # GoNotoCurrentSerif.ttf
 #echo "Generating GoNotoCurrentSerif.ttf. Current time: $(date)."
 #go_build GoNotoCurrentSerif.ttf "${GoNotoCurrentSerif[@]}"
+
+# GoNotoCurrentSerifItalic.ttf
+#echo "Generating GoNotoCurrentSerifItalic.ttf. Current time: $(date)."
+#go_build GoNotoCurrentSerifItalic.ttf "${GoNotoCurrentSerifItalic[@]}"
+
+# GoNotoCurrentSerifBoldItalic.ttf
+#echo "Generating GoNotoCurrentSerifBoldItalic.ttf. Current time: $(date)."
+#go_build GoNotoCurrentSerifBoldItalic.ttf "${GoNotoCurrentSerifBoldItalic[@]}"
 
 # GoNotoAncientSerif.ttf
 #echo "Generating GoNotoAncientSerif.ttf. Current time: $(date)."

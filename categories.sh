@@ -7,8 +7,10 @@ declare -x GoNotoCurrentRegular1
 declare -x GoNotoCurrentRegular2
 declare -x GoNotoCurrentBold1
 declare -x GoNotoCurrentBold2
-#declare -x GoNotoCurrentSerif
-#declare -x GoNotoAncientSerif
+declare -x GoNotoCurrentMono
+declare -x GoNotoCurrentMonoBold
+declare -x GoNotoCurrentItalic
+declare -x GoNotoCurrentBoldItalic
 
 #declare -x GoNotoAfricaMiddleEast
 #declare -x GoNotoSouthAsia
@@ -16,6 +18,11 @@ declare -x GoNotoCurrentBold2
 #declare -x GoNotoSouthEastAsia
 #declare -x GoNotoEastAsia
 #declare -x GoNotoEuropeAmericas
+
+#declare -x GoNotoCurrentSerif
+#declare -x GoNotoAncientSerif
+#declare -x GoNotoCurrentSerifItalic
+#declare -x GoNotoCurrentSerifBoldItalic
 
 GoNotoAncient=(
     "NotoSans-Regular.ttf"
@@ -301,6 +308,22 @@ GoNotoCurrentBold2=(
     "NotoSansMiao-Regular.ttf" # No bold
 )
 
+GoNotoCurrentMono=(
+    "NotoSansMono-Regular.ttf"
+)
+
+GoNotoCurrentMonoBold=(
+    "NotoSansMono-Bold.ttf"
+)
+
+GoNotoCurrentItalic=(
+    "NotoSans-Italic.ttf"
+)
+
+GoNotoCurrentBoldItalic=(
+    "NotoSans-BoldItalic.ttf"
+)
+
 # GoNotoAfricaMiddleEast=(
 #     "NotoSans-Regular.ttf"
 #     "NotoNaskhArabic-Regular.ttf" # or "NotoSansArabic-Regular.ttf"
@@ -571,4 +594,18 @@ GoNotoCurrentBold2=(
 # #    "NotoSansSymbols2-Regular.ttf"
 # #    "NotoSansMathSubset-Regular.ttf"
 # #    "NotoMusic-Regular.ttf"
+# )
+
+# GoNotoCurrentSerifItalic=(
+#     # It's recommended to put NotoSerif-Italic.ttf as the first element in the
+#     # list to maximize the amount of meta data retained in the final merged font.
+#     "NotoSerif-Italic.ttf"
+#     "NotoSerifTamil-Italic.ttf"
+# )
+
+# GoNotoCurrentSerifBoldItalic=(
+#     # It's recommended to put NotoSerif-BoldItalic.ttf as the first element in the
+#     # list to maximize the amount of meta data retained in the final merged font.
+#     "NotoSerif-BoldItalic.ttf"
+#     "NotoSerifTamil-BoldItalic.ttf"
 # )
