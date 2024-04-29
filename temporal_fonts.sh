@@ -2,7 +2,7 @@
 source common_steps.sh
 
 # --- execution starts here ---
-download_tools()
+download_tools
 
 # GoNotoCurrentRegular.ttf
 create_cjk_subset &
