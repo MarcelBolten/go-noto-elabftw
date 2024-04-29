@@ -32,7 +32,7 @@ GoNotoAncient=(
     "NotoSansModi-Regular.ttf"
     "NotoSansMultani-Regular.ttf"
     "NotoSansNagMundari-Regular.ttf"
-    "NotoSansNandinagariSubset-Regular.ttf"
+    "NotoSansNandinagariSubset-Regular.ttf" # No vertical
     "NotoSansOldSogdian-Regular.ttf"
     "NotoSansOldTurkic-Regular.ttf"
     "NotoSansPhagsPa-Regular.ttf"
@@ -46,7 +46,7 @@ GoNotoAncient=(
     "NotoSansTirhuta-Regular.ttf"
     "NotoSansZanabazarSquare-Regular.ttf"
     "NotoSerifAhom-Regular.ttf"
-    "NotoSerifDograSubset-Regular.ttf"
+    "NotoSerifDograSubset-Regular.ttf" # No vertical
     "NotoSerifKhojki-Regular.ttf"
     "NotoSerifDivesAkuru-Regular.ttf"
     "NotoSerifMakasar-Regular.ttf"
@@ -71,7 +71,7 @@ GoNotoAncient=(
     "NotoSansOgham-Regular.ttf"
     "NotoSansOldPermic-Regular.ttf"
     "NotoSansShavian-Regular.ttf"
-    "NotoSansDuployanSubset-Regular.ttf"
+    "NotoSansDuployanSubset-Regular.ttf" # drop some attached affixes
     "NotoSansMayanNumerals-Regular.ttf"
     # 'GoNotoAfricaMiddleEast.ttf': [
     "NotoSansBamum-Regular.ttf"   # Bamum Supplement is historical
@@ -98,13 +98,7 @@ GoNotoAncient=(
     "NotoSansAnatolianHieroglyphs-Regular.ttf"
     # 'GoNotoEastAsia.ttf': [
     "NotoSansMarchen-Regular.ttf"
-    "NotoSerifTangutSubset-Regular.ttf"
-    # Common for all scripts
-    # For eLabFTW we only need it once
-    # "NotoSansSymbols-Regular.ttf"
-    # "NotoSansSymbols2-Regular.ttf"
-    # "NotoSansMathSubset-Regular.ttf"
-    # "NotoMusic-Regular.ttf"
+    "NotoSerifTangutSubset-Regular.ttf" # No vertical
 )
 
 GoNotoCurrentRegular1=(
