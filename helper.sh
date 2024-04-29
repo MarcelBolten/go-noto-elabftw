@@ -45,11 +45,13 @@ except:
 f.close()
 eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
+    set +eu
     for font in *.ttf cache/*.ttf; do
         printf "$font\t";
         python3 ./get_codepoints.py "$font" | sort | uniq | wc -l | tr '\n' '\t';
         python3 ./stats.py "$font";
     done
+    set -eu
     rm -f stats.py
 }
 
