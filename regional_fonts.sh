@@ -1,18 +1,7 @@
 #!/usr/bin/env bash
-set -e
-
-[[ -z "$VIRTUAL_ENV" ]] && echo "Refusing to run outside of venv. See README.md." && exit 1
-
-python3 -m pip install 'fonttools >= 4.41.1'
-
-# import functions and globals
-source url.sh
-source helper.sh
-source categories.sh
+source common_steps.sh
 
 # --- execution starts here ---
-mkdir -p cache/
-
 create_duployan_subset
 create_math_subset
 create_tibetan_subset
