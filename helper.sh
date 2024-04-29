@@ -19,8 +19,7 @@ download_url() {
     fi
 }
 
-download_tools()
-{
+download_tools() {
     cd cache/
     download_url "https://github.com/notofonts/nototools/tree/main/nototools/substitute_linemetrics.py"
     download_url "https://github.com/fonttools/fonttools/raw/main/Snippets/otf2ttf.py"
