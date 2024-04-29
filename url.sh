@@ -52,7 +52,7 @@ declare -A font_urls=(
     ["NotoSansDeseret-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansDeseret/hinted/ttf/NotoSansDeseret-Regular.ttf
     ["NotoSansDevanagari-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Bold.ttf
     ["NotoSansDevanagari-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Regular.ttf
-    ["NotoSansDuployan-Regular.ttf"]=https://notofonts.github.io/duployan/fonts/NotoSansDuployan/unhinted/ttf/NotoSansDuployan-Regular.ttf # TODO: Cannot merge 'CFF ' table
+    ["NotoSansDuployan-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansDuployan/unhinted/ttf/NotoSansDuployan-Regular.ttf # TODO: Cannot merge 'CFF ' table
     ["NotoSansEgyptianHieroglyphs-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansEgyptianHieroglyphs/hinted/ttf/NotoSansEgyptianHieroglyphs-Regular.ttf
     ["NotoSansElbasan-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansElbasan/hinted/ttf/NotoSansElbasan-Regular.ttf
     ["NotoSansElymaic-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansElymaic/hinted/ttf/NotoSansElymaic-Regular.ttf
@@ -70,7 +70,7 @@ declare -A font_urls=(
     ["NotoSansGurmukhi-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansGurmukhi/hinted/ttf/NotoSansGurmukhi-Bold.ttf
     ["NotoSansGurmukhi-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansGurmukhi/hinted/ttf/NotoSansGurmukhi-Regular.ttf
     ["NotoSansHanifiRohingya-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansHanifiRohingya/hinted/ttf/NotoSansHanifiRohingya-Bold.ttf
-    ["NotoSansHanifiRohingya-Regular.ttf"]=https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSansHanifiRohingya/NotoSansHanifiRohingya-Regular.ttf # TODO
+    ["NotoSansHanifiRohingya-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansHanifiRohingya/hinted/ttf/NotoSansHanifiRohingya-Regular.ttf
     ["NotoSansHanunoo-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansHanunoo/hinted/ttf/NotoSansHanunoo-Regular.ttf
     ["NotoSansHatran-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansHatran/hinted/ttf/NotoSansHatran-Regular.ttf
     ["NotoSansHebrew-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansHebrew/hinted/ttf/NotoSansHebrew-Bold.ttf
@@ -123,14 +123,14 @@ declare -A font_urls=(
     ["NotoSansMultani-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansMultani/hinted/ttf/NotoSansMultani-Regular.ttf
     ["NotoSansMyanmar-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansMyanmar/hinted/ttf/NotoSansMyanmar-Bold.ttf
     ["NotoSansMyanmar-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansMyanmar/hinted/ttf/NotoSansMyanmar-Regular.ttf
-    ["NotoSansNKo-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNKo/hinted/ttf/NotoSansNKo-Regular.ttf
-    ["NotoSansNKoUnjoined-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNKoUnjoined/hinted/ttf/NotoSansNKoUnjoined-Bold.ttf
     ["NotoSansNabataean-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNabataean/hinted/ttf/NotoSansNabataean-Regular.ttf
     ["NotoSansNagMundari-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNagMundari/hinted/ttf/NotoSansNagMundari-Regular.ttf
     ["NotoSansNandinagari-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNandinagari/hinted/ttf/NotoSansNandinagari-Regular.ttf
+    ["NotoSansNewa-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNewa/hinted/ttf/NotoSansNewa-Regular.ttf
     ["NotoSansNewTaiLue-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNewTaiLue/hinted/ttf/NotoSansNewTaiLue-Bold.ttf
     ["NotoSansNewTaiLue-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNewTaiLue/hinted/ttf/NotoSansNewTaiLue-Regular.ttf
-    ["NotoSansNewa-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNewa/hinted/ttf/NotoSansNewa-Regular.ttf
+    ["NotoSansNKo-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNKo/hinted/ttf/NotoSansNKo-Regular.ttf
+    ["NotoSansNKoUnjoined-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNKoUnjoined/hinted/ttf/NotoSansNKoUnjoined-Bold.ttf
     ["NotoSansNushu-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansNushu/hinted/ttf/NotoSansNushu-Regular.ttf
     ["NotoSansOgham-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansOgham/hinted/ttf/NotoSansOgham-Regular.ttf
     ["NotoSansOlChiki-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansOlChiki/hinted/ttf/NotoSansOlChiki-Bold.ttf
@@ -150,7 +150,7 @@ declare -A font_urls=(
     ["NotoSansPahawhHmong-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPahawhHmong/hinted/ttf/NotoSansPahawhHmong-Regular.ttf
     ["NotoSansPalmyrene-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPalmyrene/hinted/ttf/NotoSansPalmyrene-Regular.ttf
     ["NotoSansPauCinHau-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPauCinHau/hinted/ttf/NotoSansPauCinHau-Regular.ttf
-    ["NotoSansPhags-Pa-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPhagsPa/hinted/ttf/NotoSansPhags-Pa-Regular.ttf # // likely erroneous
+    ["NotoSansPhagsPa-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPhagsPa/hinted/ttf/NotoSansPhagsPa-Regular.ttf
     ["NotoSansPhoenician-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPhoenician/hinted/ttf/NotoSansPhoenician-Regular.ttf
     ["NotoSansPsalterPahlavi-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansPsalterPahlavi/hinted/ttf/NotoSansPsalterPahlavi-Regular.ttf
     ["NotoSansRejang-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansRejang/hinted/ttf/NotoSansRejang-Regular.ttf
@@ -222,7 +222,7 @@ declare -A font_urls=(
     ["NotoSerifMakasar-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifMakasar/hinted/ttf/NotoSerifMakasar-Regular.ttf
     ["NotoSerifMalayalam-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifMalayalam/hinted/ttf/NotoSerifMalayalam-Regular.ttf
     ["NotoSerifMyanmar-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifMyanmar/hinted/ttf/NotoSerifMyanmar-Regular.ttf
-    ["NotoSerifNyiakengPuachueHmong-Regular.ttf"]=https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSerifNyiakengPuachueHmong/NotoSerifNyiakengPuachueHmong-Regular.ttf # TODO
+    ["NotoSerifNPHmong-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifNPHmong/hinted/ttf/NotoSerifNPHmong-Regular.ttf
     ["NotoSerifOldUyghur-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifOldUyghur/hinted/ttf/NotoSerifOldUyghur-Regular.ttf
     ["NotoSerifOriya-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifOriya/hinted/ttf/NotoSerifOriya-Regular.ttf
     ["NotoSerifOttomanSiyaq-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifOttomanSiyaq/hinted/ttf/NotoSerifOttomanSiyaq-Regular.ttf
@@ -241,8 +241,21 @@ declare -A font_urls=(
     ["NotoTraditionalNushu-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoTraditionalNushu/hinted/ttf/NotoTraditionalNushu-Bold.ttf
 )
 
+# report broken links
+# echo "Checking for broken links..."
 # for font in "${font_urls[@]}"; do
 #   if ! wget --spider "$font" 2>/dev/null; then
 #     echo "File does not exist: $font"
-#  fi
+#   fi
+#   echo -n '.'
+# done
+# echo ''
+
+# download all fonts
+# echo "Downloading fonts..."
+# for font in "${font_urls[@]}"; do
+#   echo "${font##*/}"
+#   if wget --spider "$font" 2>/dev/null && [ ! -f "${font##*/}" ]; then
+#     wget "$font"
+#   fi
 # done
