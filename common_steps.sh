@@ -11,3 +11,5 @@ source helper.sh
 source categories.sh
 
 mkdir -p cache/
+
+download_tools
