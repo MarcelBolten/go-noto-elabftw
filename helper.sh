@@ -140,8 +140,9 @@ _create_tibetan_subset() {
 
 # create tibetan subset so that GSUB is not overflow'ed.
 create_tibetan_subset() {
-    _create_tibetan_subset "NotoSerifTibetan-Regular.ttf"
-    _create_tibetan_subset "NotoSerifTibetan-Bold.ttf"
+    _create_tibetan_subset "NotoSerifTibetan-Regular.ttf" &
+    _create_tibetan_subset "NotoSerifTibetan-Bold.ttf" &
+    wait
 }
 
 # create Math subset to remove MATH table and MATH-specific glyphs
@@ -303,8 +304,9 @@ _create_cjk_subset() {
 }
 
 create_cjk_subset() {
-    _create_cjk_subset NotoSansCJKsc-Regular.otf
-    _create_cjk_subset NotoSansCJKsc-Bold.otf
+    _create_cjk_subset NotoSansCJKsc-Regular.otf &
+    _create_cjk_subset NotoSansCJKsc-Bold.otf &
+    wait
 }
 
 _create_korean_hangul_subset() {
@@ -314,7 +316,7 @@ _create_korean_hangul_subset() {
     local subset_ttf="${subset_otf/otf/ttf}"
     local codepoints=""
 
-    if [[ -e "cache/$subset_ttf" ]]; then
+    if [[ -e "$subset_ttf" ]]; then
         echo "Not overwriting existing font $subset_ttf."
         return
     fi
@@ -327,10 +329,6 @@ _create_korean_hangul_subset() {
     fi
     codepoints+="U+D7B0-D7FF," # Hangul jamo extended-B
 
-    cd cache/
-
-    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/$input_otf"
-
     echo "Generating Korean font $subset_ttf. Current time: $(date)."
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
                   --recommended-glyphs --passthrough-tables --layout-features-="vert" \
@@ -339,16 +337,20 @@ _create_korean_hangul_subset() {
 
     otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
-
-    cd "$OLDPWD"
 }
 
 create_korean_hangul_subset_and_full() {
-    _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Subset"
-    _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Subset"
+    cd cache/
+    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf"
+    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Bold.otf"
 
-    _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Full"
-    _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Full"
+    _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Subset" &
+    _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Subset" &
+
+    _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Full" &
+    _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Full" &
+    wait
+    cd "$OLDPWD"
 }
 
 _create_japanese_kana_subset() {
@@ -391,8 +393,9 @@ _create_japanese_kana_subset() {
 }
 
 create_japanese_kana_subset() {
-    _create_japanese_kana_subset NotoSansCJKjp-Regular.otf
-    _create_japanese_kana_subset NotoSansCJKjp-Bold.otf
+    _create_japanese_kana_subset NotoSansCJKjp-Regular.otf &
+    _create_japanese_kana_subset NotoSansCJKjp-Bold.otf &
+    wait
 }
 
 _declare_go_noto_kurrent_category() {

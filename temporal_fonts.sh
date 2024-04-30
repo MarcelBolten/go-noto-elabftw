@@ -5,11 +5,11 @@ source common_steps.sh
 # GoNotoCurrentRegular.ttf
 create_cjk_subset &
 create_duployan_subset &
-create_japanese_kana_subset &
-create_korean_hangul_subset_and_full &
-#create_math_subset
-create_tibetan_subset &
 wait
+create_japanese_kana_subset
+create_korean_hangul_subset_and_full
+#create_math_subset
+create_tibetan_subset
 
 # declare GoNotoKurrentRegular and GoNotoKurrentBold categories
 #declare_go_noto_kurrent_categories
@@ -61,7 +61,7 @@ drop_vertical_tables NotoSansNandinagari-Regular.ttf &
 drop_vertical_tables NotoSerifTangut-Regular.ttf &
 wait
 echo "Generating GoNotoAncient.ttf. Current time: $(date)."
-go_build GoNotoAncient.ttf "${GoNotoAncient[@]}"
+go_build GoNotoAncient.ttf "${GoNotoAncient[@]}" &
 
 # GoNotoCurrentSerif.ttf
 #echo "Generating GoNotoCurrentSerif.ttf. Current time: $(date)."
