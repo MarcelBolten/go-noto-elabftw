@@ -23,6 +23,9 @@ download_tools() {
     cd cache/
     download_url "https://raw.githubusercontent.com/notofonts/nototools/main/nototools/substitute_linemetrics.py"
     download_url "https://raw.githubusercontent.com/fonttools/fonttools/main/Snippets/otf2ttf.py"
+    download_url "https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip"
+    python3 -m zipfile -e Unihan.zip .
+
     cd "$OLDPWD"
 }
 
@@ -219,8 +222,6 @@ create_cjk_unihan_core() {
 
     cd cache/
 
-    download_url "https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip"
-    python3 -m zipfile -e Unihan.zip .
     grep kIICore Unihan_IRGSources.txt | cut -f1 > "$subset_codepoints"
     grep kUnihanCore2020 Unihan_DictionaryLikeData.txt | cut -f1 >> "$subset_codepoints"
 
@@ -278,8 +279,6 @@ _create_cjk_subset() {
 
     echo "Generating CJK font $subset_ttf. Current time: $(date)."
 
-    download_url "https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip"
-    python3 -m zipfile -e Unihan.zip .
     grep kIICore Unihan_IRGSources.txt | cut -f1 > unihan_iicore.txt
 
     # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow
