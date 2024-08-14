@@ -247,6 +247,7 @@ declare -A font_urls=(
     ["NotoSerifYezidi-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifYezidi/hinted/ttf/NotoSerifYezidi-Bold.ttf
     ["NotoSerifYezidi-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSerifYezidi/hinted/ttf/NotoSerifYezidi-Regular.ttf
     ["NotoTraditionalNushu-Bold.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoTraditionalNushu/hinted/ttf/NotoTraditionalNushu-Bold.ttf
+    ["NotoZnamennyMusicalNotation-Regular.ttf"]=https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoZnamennyMusicalNotation/hinted/ttf/NotoZnamennyMusicalNotation-Regular.ttf
 )
 
 # report broken links

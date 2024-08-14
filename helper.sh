@@ -29,6 +29,23 @@ download_tools() {
     cd "$OLDPWD"
 }
 
+get_noto_emoji_monochrome() {
+    local url="https://fonts.google.com/download/list?family=Noto%20Emoji"
+
+    cd cache/
+    wget -q -O - "https://fonts.google.com/download/list?family=Noto%20Emoji" \
+        | tail -c +5 \
+        | jq -r '.manifest.fileRefs[] | select(.filename | test("-(?:Bold|Regular)\\.ttf")) | "\(.filename | match("(NotoEmoji-(?:Bold|Regular)\\.ttf)").captures[0].string) \(.url)"' \
+        | while read -r filename fonturl; do
+            wget -O "$filename" "$fonturl"
+            echo "Scaling $filename"
+            newname=$(fontforge -script ../scale_emoji.py "$filename")
+            python ../rename_font.py "$newname" "Noto Emoji 1000em" "NotoEmoji1000em"
+        done
+
+    cd "$OLDPWD"
+}
+
 # Rename font metadata
 edit_font_info() {
     local fontname="$1"
@@ -56,7 +73,7 @@ f.close()
 eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
     set +eu
-    for font in *.ttf cache/*.ttf; do
+    for font in *.*tf cache/*.*tf; do # *.*tf cache/*.*tf lato/*.*tf
         printf "$font\t";
         python3 ./get_codepoints.py "$font" | sort | uniq | wc -l | tr '\n' '\t';
         python3 ./stats.py "$font";
@@ -77,11 +94,65 @@ drop_vertical_tables() {
         download_url "${font_urls[$fontname]}"
         echo "Removing vertical tables from $fontname"
         "$VIRTUAL_ENV"/bin/pyftsubset --recommended-glyphs --passthrough-tables \
-                      --glyphs='*' --unicodes='*' --glyph-names --layout-features='*' \
-                      --drop-tables+=vhea,vmtx "$fontname" --output-file="$output_font"
+            --glyphs='*' --unicodes='*' --glyph-names --layout-features='*' \
+            --drop-tables+=vhea,vmtx "$fontname" --output-file="$output_font"
     fi
 
     cd "$OLDPWD"
+}
+
+# create Coptic subset to match Lato v2
+create_coptic_subset() {
+    local input_font=NotoSansCoptic-Regular.ttf
+    local subset_ttf="${input_font/-/Subset-}"
+    local codepoints="U+03E2-03EF"
+
+    if [[ -e "cache/$subset_ttf" ]]; then
+        echo "Not overwriting existing font $subset_ttf."
+        return
+    fi
+
+    cd cache/
+
+    download_url "${font_urls[$input_font]}"
+
+    echo "Generating Coptic font $subset_ttf. Current time: $(date)."
+    "$VIRTUAL_ENV"/bin/pyftsubset --no-notdef-glyph --unicodes="$codepoints" \
+        --output-file="$subset_ttf" "$input_font"
+
+    python3 ../rename_font.py "$subset_ttf" "Noto Sans Coptic Subset" "NotoSansCopticSubset"
+
+    cd "$OLDPWD"
+}
+
+# extract Thai currency symbol to match Lato v2
+_create_thai_subset() {
+    local input_font=$1
+    local subset_ttf="${input_font/-/Subset-}"
+    local codepoints="U+0E3F"
+
+    if [[ -e "cache/$subset_ttf" ]]; then
+        echo "Not overwriting existing font $subset_ttf."
+        return
+    fi
+
+    cd cache/
+
+    download_url "${font_urls[$input_font]}"
+
+    echo "Generating Thai font $subset_ttf. Current time: $(date)."
+    "$VIRTUAL_ENV"/bin/pyftsubset --no-notdef-glyph --unicodes="$codepoints" \
+        --output-file="$subset_ttf" "$input_font"
+
+    python3 ../rename_font.py "$subset_ttf" "Noto Sans Thai Subset" "NotoSansThaiSubset"
+
+    cd "$OLDPWD"
+}
+
+create_thai_subset() {
+    _create_thai_subset NotoSansThai-Regular.ttf &
+    _create_thai_subset NotoSansThai-Bold.ttf &
+    wait
 }
 
 # create Duployan subset so that GSUB is not overflow'ed.
@@ -98,13 +169,13 @@ create_duployan_subset() {
         echo "Creating a smaller subset of Duployan glyphs..."
         local glyphs_file=duployan_glyphs.txt
         "$VIRTUAL_ENV"/bin/ttx -o - -q -t GlyphOrder "$input_font" \
-                      | grep '<GlyphID ' | cut -f4 -d'"' \
-                      | grep "$include_regex" \
-                      > "$glyphs_file"
+            | grep '<GlyphID ' | cut -f4 -d'"' \
+            | grep "$include_regex" \
+            > "$glyphs_file"
         "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --notdef-outline \
-                      --layout-features+=subs,sups --layout-features-=curs,rclt \
-                      --glyph-names --no-layout-closure \
-                      --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
+            --layout-features+=subs,sups --layout-features-=curs,rclt \
+            --glyph-names --no-layout-closure \
+            --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
     fi
 
     python3 ../rename_font.py "$output_font" "Noto Duployan Subset" "NotoDuployanSubset"
@@ -125,12 +196,12 @@ _create_tibetan_subset() {
 
         echo "Creating a smaller subset of Tibetan glyphs..."
         glyphs=$("$VIRTUAL_ENV"/bin/ttx -o - -q -t GlyphOrder "$input_font" \
-                     | grep '<GlyphID ' | cut -f4 -d'"' \
-                     | grep -Ev  "$exclude_regex" \
-                )
+            | grep '<GlyphID ' | cut -f4 -d'"' \
+            | grep -Ev  "$exclude_regex" \
+        )
         "$VIRTUAL_ENV"/bin/pyftsubset --recommended-glyphs --passthrough-tables \
-                      --layout-features='*' --glyph-names --no-layout-closure \
-                      --glyphs="${glyphs}" "$input_font" --output-file="$output_font"
+            --layout-features='*' --glyph-names --no-layout-closure \
+            --glyphs="${glyphs}" "$input_font" --output-file="$output_font"
     fi
 
     python3 ../rename_font.py "$output_font" "Noto Tibetan Subset" "NotoTibetanSubset"
@@ -159,14 +230,14 @@ create_math_subset() {
         echo "Creating a smaller subset of Math glyphs..."
         local glyphs_file=math_glyphs.txt
         "$VIRTUAL_ENV"/bin/ttx -o - -q -t GlyphOrder "$input_font" \
-                      | grep '<GlyphID ' | cut -f4 -d'"' \
-                      | grep -v "$exclude_regex" \
-                      > "$glyphs_file"
+            | grep '<GlyphID ' | cut -f4 -d'"' \
+            | grep -v "$exclude_regex" \
+            > "$glyphs_file"
         "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --notdef-outline \
-                      --drop-tables+=MATH \
-                      --layout-features=aalt,abvm,ccmp,fwid,kern,mark,mkmk,rtla,ss01 \
-                      --glyph-names --no-layout-closure \
-                      --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
+            --drop-tables+=MATH \
+            --layout-features=aalt,abvm,ccmp,fwid,kern,mark,mkmk,rtla,ss01 \
+            --glyph-names --no-layout-closure \
+            --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
     fi
 
     python3 ../rename_font.py "$output_font" "Noto Math Subset" "NotoMathSubset"
@@ -238,9 +309,9 @@ create_cjk_unihan_core() {
 
     echo "Generating font $subset_otf. Current time: $(date)."
     "$VIRTUAL_ENV"/bin/pyftsubset "$input_font" \
-                  --unicodes-file="$subset_codepoints" --unicodes="$codepoints" \
-                  --recommended-glyphs --passthrough-tables --glyph-names \
-                  --layout-features='*' --output-file="$subset_otf"
+        --unicodes-file="$subset_codepoints" --unicodes="$codepoints" \
+        --recommended-glyphs --passthrough-tables --glyph-names \
+        --layout-features='*' --output-file="$subset_otf"
 
     echo "Generating font $subset_ttf. Current time: $(date)."
     otf2ttf "$subset_otf" "$subset_ttf"
@@ -293,9 +364,9 @@ _create_cjk_subset() {
 
     # Passthrough tables which cannot be subset
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
-                  --recommended-glyphs --passthrough-tables --layout-features="$features" \
-                  --unicodes-file=Unihan_codepoints.txt --unicodes="$codepoints" \
-                  --output-file="$subset_otf" "$input_otf"
+        --recommended-glyphs --passthrough-tables --layout-features="$features" \
+        --unicodes-file=Unihan_codepoints.txt --unicodes="$codepoints" \
+        --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
@@ -306,6 +377,43 @@ _create_cjk_subset() {
 create_cjk_subset() {
     _create_cjk_subset NotoSansCJKsc-Regular.otf &
     _create_cjk_subset NotoSansCJKsc-Bold.otf &
+    wait
+}
+
+_create_cjk_sip_subset() {
+    local input_otf=$1
+    local subset_otf="${input_otf/-/SIPSubset-}"
+    local subset_ttf="${subset_otf/otf/ttf}"
+    local codepoints="U+0020-007E,"
+    local codepoints+="U+20000-323AF"
+    local features="aalt,ccmp,dlig,fwid,halt,hwid,kern,liga,locl,palt,pwid"
+
+    if [[ -e "cache/$subset_ttf" ]]; then
+        echo "Not overwriting existing font $subset_ttf."
+        return
+    fi
+
+    cd cache/
+
+    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/$input_otf"
+
+    echo "Generating CJK font $subset_ttf. Current time: $(date)."
+
+    # Passthrough tables which cannot be subset
+    "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
+        --recommended-glyphs --passthrough-tables --layout-features="$features" \
+        --unicodes="$codepoints" \
+        --output-file="$subset_otf" "$input_otf"
+
+    otf2ttf "$subset_otf" "$subset_ttf"
+    python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKsc SIP Subset" "NotoSansCJKscSIPSubset"
+
+    cd "$OLDPWD"
+}
+
+create_cjk_sip_subset() {
+    _create_cjk_sip_subset NotoSansCJKsc-Regular.otf &
+    _create_cjk_sip_subset NotoSansCJKsc-Bold.otf &
     wait
 }
 
@@ -331,9 +439,9 @@ _create_korean_hangul_subset() {
 
     echo "Generating Korean font $subset_ttf. Current time: $(date)."
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
-                  --recommended-glyphs --passthrough-tables --layout-features-="vert" \
-                  --unicodes="$codepoints" \
-                  --output-file="$subset_otf" "$input_otf"
+        --recommended-glyphs --passthrough-tables --layout-features-="vert" \
+        --unicodes="$codepoints" \
+        --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
@@ -346,6 +454,17 @@ create_korean_hangul_subset_and_full() {
 
     _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Subset" &
     _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Subset" &
+
+    _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Full" &
+    _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Full" &
+    wait
+    cd "$OLDPWD"
+}
+
+create_korean_hangul_full() {
+    cd cache/
+    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf"
+    download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Bold.otf"
 
     _create_korean_hangul_subset NotoSansCJKkr-Regular.otf "Full" &
     _create_korean_hangul_subset NotoSansCJKkr-Bold.otf "Full" &
@@ -383,8 +502,8 @@ _create_japanese_kana_subset() {
 
     echo "Generating Japanese font $subset_ttf. Current time: $(date)."
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
-                  --recommended-glyphs --passthrough-tables --layout-features="$features" \
-                  --unicodes="$codepoints" --output-file="$subset_otf" "$input_otf"
+        --recommended-glyphs --passthrough-tables --layout-features="$features" \
+        --unicodes="$codepoints" --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKjp Subset" "NotoSansCJKjpSubset"
