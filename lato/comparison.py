@@ -33,12 +33,11 @@ lato = "eLabFTWNoto-Regular.ttf"
 lato_codepoints = read_codepoints_from_file(lato + ".codepoints")
 
 fonts = [
-    "Lato-Regular_v2.ttf",
-    "NotoSans-Regular.ttf",
+    #"Lato-Regular_v2.ttf",
+    #"NotoSans-Regular.ttf",
     #"DejaVuSans.ttf",
-    #"lato-regular.ttf",
     #"Sun-ExtA.ttf",
-    #"NotoSansCJKsc-Regular.otf",
+    "NotoSansCJKsc-Regular.otf",
 ]
 
 results = {}

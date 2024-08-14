@@ -107,7 +107,7 @@ GoNotoAncient=(
     "NotoSansAnatolianHieroglyphs-Regular.ttf"
     # 'GoNotoEastAsia.ttf': [
     "NotoSansMarchen-Regular.ttf"
-    "NotoSansNushuSubset-Regular.ttf"
+    "NotoSansNushuSubset-Regular.ttf"  # No vertical
     "NotoSerifTangutSubset-Regular.ttf" # No vertical
 )
 
@@ -124,9 +124,13 @@ eLabFTWNotoRegular=(
     "NotoSansSymbols2-Regular.ttf"
     "NotoSansMathSubset-Regular.ttf"
     "NotoEmoji1000em-Regular.ttf"
- )
+)
 
- eLabFTWNotoBold=(
+eLabFTWNotoSIPRegular=(
+    "NotoSansCJKscSIPSubset-Regular.ttf"
+)
+
+eLabFTWNotoBold=(
     # It's recommended to put NotoSans-Bold.ttf as the first element in the
     # list to maximize the amount of meta data retained in the final merged font.
     "NotoSans-Bold.ttf"
@@ -139,7 +143,11 @@ eLabFTWNotoRegular=(
     "NotoSansSymbols2-Regular.ttf" # No bold
     "NotoSansMathSubset-Regular.ttf" # No bold
     "NotoEmoji1000em-Bold.ttf"
- )
+)
+
+eLabFTWNotoSIPBold=(
+    "NotoSansCJKscSIPSubset-Bold.ttf"
+)
 
 GoNotoCurrentRegular1=(
     # It's recommended to put NotoSans-Regular.ttf as the first element in the

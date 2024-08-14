@@ -2,6 +2,8 @@ cache/
 cached_fonts/
 nototools/
 venv*/
+stats/
 *.pickle
 *.ttf
 *.otf
+*.codepoints

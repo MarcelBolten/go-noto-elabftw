@@ -2,7 +2,7 @@
 source common_steps.sh
 
 # --- execution starts here ---
-# eLabFTWNotoRegular.ttf
+# eLabFTWNoto-Regular.ttf
 create_cjk_subset
 create_korean_hangul_full
 create_japanese_kana_subset &
@@ -17,6 +17,18 @@ go_build eLabFTWNoto-Regular.ttf "${eLabFTWNotoRegular[@]}" &
 
 echo "Generating eLabFTWNoto-Bold.ttf. Current time: $(date)."
 go_build eLabFTWNoto-Bold.ttf "${eLabFTWNotoBold[@]}" &
+
+wait
+
+# eLabFTWNotoSIP-Regular.ttf
+
+create_cjk_sip_subset
+
+echo "Generating eLabFTWNotoSIP-Regular.ttf. Current time: $(date)."
+go_build eLabFTWNotoSIP-Regular.ttf "${eLabFTWNotoSIPRegular[@]}" &
+
+echo "Generating eLabFTWNotoSIP-Bold.ttf. Current time: $(date)."
+go_build eLabFTWNotoSIP-Bold.ttf "${eLabFTWNotoSIPBold[@]}" &
 
 wait
 
@@ -35,8 +47,11 @@ go_build GoNotoCurrentBoldItalic.ttf "${GoNotoCurrentBoldItalic[@]}" &
 wait
 
 # GoNotoAncient.ttf
+
+create_duployan_subset &
 drop_vertical_tables NotoSerifDogra-Regular.ttf &
 drop_vertical_tables NotoSansNandinagari-Regular.ttf &
+drop_vertical_tables NotoSansNushu-Regular.ttf &
 drop_vertical_tables NotoSerifTangut-Regular.ttf &
 wait
 echo "Generating GoNotoAncient.ttf. Current time: $(date)."

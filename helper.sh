@@ -73,9 +73,9 @@ f.close()
 eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
     set +eu
-    for font in *.*tf cache/*.*tf; do # *.*tf cache/*.*tf lato/*.*tf
+    for font in lato/*.*tf; do # *.*tf cache/*.*tf lato/*.*tf
         printf "$font\t";
-        python3 ./get_codepoints.py "$font" | sort | uniq | wc -l | tr '\n' '\t';
+        python3 ./get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
         python3 ./stats.py "$font";
     done
     set -eu
@@ -117,7 +117,7 @@ create_coptic_subset() {
     download_url "${font_urls[$input_font]}"
 
     echo "Generating Coptic font $subset_ttf. Current time: $(date)."
-    "$VIRTUAL_ENV"/bin/pyftsubset --no-notdef-glyph --unicodes="$codepoints" \
+    "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --unicodes="$codepoints" \
         --output-file="$subset_ttf" "$input_font"
 
     python3 ../rename_font.py "$subset_ttf" "Noto Sans Coptic Subset" "NotoSansCopticSubset"
@@ -141,7 +141,7 @@ _create_thai_subset() {
     download_url "${font_urls[$input_font]}"
 
     echo "Generating Thai font $subset_ttf. Current time: $(date)."
-    "$VIRTUAL_ENV"/bin/pyftsubset --no-notdef-glyph --unicodes="$codepoints" \
+    "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --unicodes="$codepoints" \
         --output-file="$subset_ttf" "$input_font"
 
     python3 ../rename_font.py "$subset_ttf" "Noto Sans Thai Subset" "NotoSansThaiSubset"
@@ -328,8 +328,11 @@ _create_cjk_subset() {
     local codepoints=""
     local features=""
 
+    codepoints+="U+2500-257F,"   # Box drawing
+    codepoints+="U+2580-259F" # Block Elements
     # codepoints+="U+2E80-2EFF,"   # CJK radicals supplement
     # codepoints+="U+2F00-2FD5,"   # Kangxi radicals
+    # codepoints+="U+2FF0-2FFF,"   # Ideographic description characters
     codepoints+="U+3000-303F,"   # CJK symbols and punctuation
     codepoints+="U+3100-312F,"   # Bopomofo
     codepoints+="U+31A0-31BF,"   # Bopomofo extended
@@ -353,14 +356,15 @@ _create_cjk_subset() {
 
     grep kIICore Unihan_IRGSources.txt | cut -f1 > unihan_iicore.txt
 
-    # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow
+    # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow, max is U+9FFF
     # (reduce number of segments)
-    for code in $(seq 0x4e00 0x6000); do
+    #for code in $(seq 0x4e00 0x6000); do
+    for code in $(seq 0x4e00 0x9000); do
         printf "U+%X\n" "$code"
     done > unihan_range.txt
 
-    # Combine it with IICore codepoints
-    cat unihan_iicore.txt unihan_range.txt | sort | uniq > Unihan_codepoints.txt
+    # Combine it with IICore codepoints but remove all from SIP
+    cat unihan_iicore.txt unihan_range.txt | sort | uniq | sed '/U+2[0-9A-F]\{4\}/d' > Unihan_codepoints.txt
 
     # Passthrough tables which cannot be subset
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
