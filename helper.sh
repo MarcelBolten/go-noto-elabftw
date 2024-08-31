@@ -23,6 +23,7 @@ download_tools() {
     cd cache/
     download_url "https://raw.githubusercontent.com/notofonts/nototools/main/nototools/substitute_linemetrics.py"
     download_url "https://raw.githubusercontent.com/fonttools/fonttools/main/Snippets/otf2ttf.py"
+    download_url "https://unicode.org/Public/UNIDATA/Blocks.txt"
     download_url "https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip"
     python3 -m zipfile -e Unihan.zip .
 
@@ -33,7 +34,7 @@ get_noto_emoji_monochrome() {
     local url="https://fonts.google.com/download/list?family=Noto%20Emoji"
 
     cd cache/
-    wget -q -O - "https://fonts.google.com/download/list?family=Noto%20Emoji" \
+    wget -q -O - "$url" \
         | tail -c +5 \
         | jq -r '.manifest.fileRefs[] | select(.filename | test("-(?:Bold|Regular)\\.ttf")) | "\(.filename | match("(NotoEmoji-(?:Bold|Regular)\\.ttf)").captures[0].string) \(.url)"' \
         | while read -r filename fonturl; do
@@ -73,7 +74,7 @@ f.close()
 eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
     set +eu
-    for font in lato/*.*tf; do # *.*tf cache/*.*tf lato/*.*tf
+    for font in *.*tf cache/*.*tf lato/*.*tf; do #
         printf "$font\t";
         python3 ./get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
         python3 ./stats.py "$font";
@@ -294,8 +295,7 @@ create_cjk_unihan_core() {
 
     cd cache/
 
-    grep kIICore Unihan_IRGSources.txt | cut -f1 > "$subset_codepoints"
-    grep kUnihanCore2020 Unihan_DictionaryLikeData.txt | cut -f1 >> "$subset_codepoints"
+    grep kUnihanCore2020 Unihan_DictionaryLikeData.txt | cut -f1 > "$subset_codepoints"
 
     # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow
     # (reduce number of segments)
@@ -329,15 +329,17 @@ _create_cjk_subset() {
     local features=""
 
     codepoints+="U+2500-257F,"   # Box drawing
-    codepoints+="U+2580-259F" # Block Elements
-    # codepoints+="U+2E80-2EFF,"   # CJK radicals supplement
-    # codepoints+="U+2F00-2FD5,"   # Kangxi radicals
-    # codepoints+="U+2FF0-2FFF,"   # Ideographic description characters
+    codepoints+="U+2580-259F"    # Block Elements
+    codepoints+="U+2E80-2EFF,"   # CJK radicals supplement
+    codepoints+="U+2F00-2FD5,"   # Kangxi radicals
+    codepoints+="U+2FF0-2FFF,"   # Ideographic description characters
     codepoints+="U+3000-303F,"   # CJK symbols and punctuation
     codepoints+="U+3100-312F,"   # Bopomofo
     codepoints+="U+31A0-31BF,"   # Bopomofo extended
     codepoints+="U+31C0-31EF,"   # CJK strokes
+    codepoints+="U+F900-FAFF,"   # CJK compatibility ideographs
     codepoints+="U+FE30-FE4F,"   # CJK compatibility forms, used with vertical writing
+    codepoints+="U+FE50-FE6F,"   # Small Form Variants
 
     # Prepared by first subsetting with --layout-features='*' and then
     # dropping 'vert', 'vhal', 'vkrn', 'vpal', 'vrt2', 'hist'
@@ -348,48 +350,69 @@ _create_cjk_subset() {
         return
     fi
 
-    cd cache/
-
     download_url "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/$input_otf"
 
     echo "Generating CJK font $subset_ttf. Current time: $(date)."
 
-    grep kIICore Unihan_IRGSources.txt | cut -f1 > unihan_iicore.txt
-
-    # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow, max is U+9FFF
-    # (reduce number of segments)
-    #for code in $(seq 0x4e00 0x6000); do
-    for code in $(seq 0x4e00 0x9000); do
-        printf "U+%X\n" "$code"
-    done > unihan_range.txt
-
-    # Combine it with IICore codepoints but remove all from SIP
-    cat unihan_iicore.txt unihan_range.txt | sort | uniq | sed '/U+2[0-9A-F]\{4\}/d' > Unihan_codepoints.txt
-
     # Passthrough tables which cannot be subset
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
         --recommended-glyphs --passthrough-tables --layout-features="$features" \
-        --unicodes-file=Unihan_codepoints.txt --unicodes="$codepoints" \
+        --unicodes-file=Unihan_codepoints_BMP.txt --unicodes="$codepoints" \
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
     python3 ../rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
 
-    cd "$OLDPWD"
 }
 
 create_cjk_subset() {
+    cd cache/
+    #grep kIICore Unihan_IRGSources.txt | cut -f1 > unihan_iicore.txt
+    grep kUnihanCore2020 Unihan_DictionaryLikeData.txt | cut -f1 > unihan_core2020.txt
+    cat unihan_core2020.txt | sed -n '/U+[0-9A-F]\{4\}\b/p' > unihan_core2020_BMP.txt
+    cat unihan_core2020.txt | sed -n '/U+2[0-9A-F]\{4\}\b/p' > unihan_core2020_SIP.txt
+
+    # 4E00..9FFF; CJK Unified Ideographs
+    # Choose U+4e00 to U+6000 to avoid cmap format 4 subtable overflow
+    # (reduce number of segments)
+    break_point=0x6000
+    for code in $(seq 0x4e00 $break_point); do
+        printf "U+%X\n" "$code"
+    done > cjkui_part1.txt
+
+    # Combine it with UnihanCore2020 MBP codepoints
+    cat unihan_core2020_BMP.txt cjkui_part1.txt | sort | uniq > Unihan_codepoints_BMP.txt
+
+    # get rest of CJK Unified Ideographs block
+    # 9FF0-9FFF not in noto font as of Aug 2024
+    for code in $(seq $((break_point++)) 0x9fff); do
+        printf "U+%X\n" "$code"
+    done > cjkui_part2.txt
+
+    # 3400..4DBF; CJK Unified Ideographs Extension A
+    # 4DB6-4DBF not in noto font as of Aug 2024
+    for code in $(seq 0x3400 0x4dbf); do
+        printf "U+%X\n" "$code"
+    done > cjkuiea.txt
+
+    # Combine CJK Unified Ideographs Extension A and missing CJK Unified Ideographs range
+    cat cjkuiea.txt cjkui_part2.txt > potentially_missing_codepoints.txt
+
+    # find all missing codepoints that are not already in UnihanCore2020
+    # they will be used in the second font file together with SIP and TIP
+    comm -13 Unihan_codepoints_BMP.txt potentially_missing_codepoints.txt > missing_cjk_codepoints_BMP.txt
+
     _create_cjk_subset NotoSansCJKsc-Regular.otf &
     _create_cjk_subset NotoSansCJKsc-Bold.otf &
     wait
+    cd "$OLDPWD"
 }
 
 _create_cjk_sip_subset() {
     local input_otf=$1
     local subset_otf="${input_otf/-/SIPSubset-}"
     local subset_ttf="${subset_otf/otf/ttf}"
-    local codepoints="U+0020-007E,"
-    local codepoints+="U+20000-323AF"
+    local codepoints+="U+20000-323AF" # Supplementary Ideographic Plane (SIP) + Tertiary Ideographic Plane (TIP) codepoints
     local features="aalt,ccmp,dlig,fwid,halt,hwid,kern,liga,locl,palt,pwid"
 
     if [[ -e "cache/$subset_ttf" ]]; then
@@ -406,7 +429,7 @@ _create_cjk_sip_subset() {
     # Passthrough tables which cannot be subset
     "$VIRTUAL_ENV"/bin/pyftsubset --drop-tables+=vhea,vmtx --glyph-names \
         --recommended-glyphs --passthrough-tables --layout-features="$features" \
-        --unicodes="$codepoints" \
+        --unicodes-file=missing_cjk_codepoints_BMP.txt --unicodes="$codepoints" \
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
@@ -490,6 +513,7 @@ _create_japanese_kana_subset() {
 
     codepoints+="U+3040-309F,"   # Hiragana
     codepoints+="U+30A0-30FF,"   # Katakana
+    codepoints+="U+3190-319F,"   # Kanbun
     codepoints+="U+31F0-31FF,"   # Katakana phonetic extensions
     codepoints+="U+3200-32FF,"   # Enclosed CJK letters and months
     codepoints+="U+3300-33FF,"   # CJK Compatibility

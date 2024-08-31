@@ -22,3 +22,4 @@ echo "Latin, Greek, Cyrillic is NotoSans"
 echo "Nyiakeng Puachue Hmong" is NPHmong
 echo "Old Hungarian Ui might be deprecated, see https://github.com/notofonts/old-hungarian-ui/issues/11"
 echo "Serif Ottoman Siyaq Numbers is SerifOttomanSiyaq"
+echo "Znammeny is typo of Znamenny and font is included"

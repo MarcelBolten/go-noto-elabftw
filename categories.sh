@@ -127,6 +127,7 @@ eLabFTWNotoRegular=(
 )
 
 eLabFTWNotoSIPRegular=(
+    "NotoSans-Regular.ttf"
     "NotoSansCJKscSIPSubset-Regular.ttf"
 )
 
@@ -146,6 +147,7 @@ eLabFTWNotoBold=(
 )
 
 eLabFTWNotoSIPBold=(
+    "NotoSans-Bold.ttf"
     "NotoSansCJKscSIPSubset-Bold.ttf"
 )
 
