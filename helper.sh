@@ -74,7 +74,7 @@ f.close()
 eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
     set +eu
-    for font in *.*tf cache/*.*tf lato/*.*tf; do #
+    for font in *.*tf; do # *.*tf cache/*.*tf lato/*.*tf
         printf "$font\t";
         python3 ./get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
         python3 ./stats.py "$font";

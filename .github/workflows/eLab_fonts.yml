@@ -2,7 +2,7 @@ name: Temporal fonts
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or pull request events
   push:
     branches: [ master, elabftw ]
   pull_request:
@@ -34,24 +34,24 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Create temporal fonts
+      - name: Create eLabFTW fonts
         run: |
             python3 -m venv venv_fonty
             source venv_fonty/bin/activate
-            ./temporal_fonts.sh
+            ./eLab_fonts.sh
             deactivate
 
       - name: Collect font statistics
         run: |
             source venv_fonty/bin/activate
             source helper.sh
-            collect_font_statistics > stats_temporal_fonts.tsv
+            collect_font_statistics > stats_eLabFTW_fonts.tsv
             deactivate
 
       - name: Upload generated fonts
         uses: actions/upload-artifact@v4
         with:
-          name: GoNotoTemporalFonts.zip
+          name: eLabFTWNotoFonts.zip
           path: |
               *.ttf
               *.otf
