@@ -17,9 +17,9 @@ RUN apk upgrade -U -a && apk add --no-cache \
     && python -m pip install -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt \
     && echo "source /go-noto-elabftw/venv_fonty/bin/activate" >> /root/.bashrc \
-    && echo "source /go-noto-elabftw/url.sh" >> /root/.bashrc \
-    && echo "source /go-noto-elabftw/helper.sh" >> /root/.bashrc \
-    && echo "source /go-noto-elabftw/categories.sh" >> /root/.bashrc \
+    && echo "source /go-noto-elabftw/scripts/url.sh" >> /root/.bashrc \
+    && echo "source /go-noto-elabftw/scripts/helper.sh" >> /root/.bashrc \
+    && echo "source /go-noto-elabftw/scripts/categories.sh" >> /root/.bashrc \
     && echo "set +eu" >> /root/.bashrc
 
 WORKDIR /go-noto-elabftw
