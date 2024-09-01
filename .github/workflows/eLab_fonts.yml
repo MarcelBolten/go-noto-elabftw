@@ -41,14 +41,14 @@ jobs:
         run: |
             python3 -m venv venv_fonty
             source venv_fonty/bin/activate
-            ./eLab_fonts.sh
+            ./scripts/eLab_fonts.sh
             deactivate
 
       - name: Collect font statistics
         run: |
             source venv_fonty/bin/activate
-            source helper.sh
-            collect_font_statistics > stats_eLabFTW_fonts.tsv
+            source scrips/helper.sh
+            scripts/collect_font_statistics > stats_eLabFTW_fonts.tsv
             deactivate
 
       - name: Upload generated fonts
