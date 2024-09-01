@@ -17,4 +17,4 @@ for ((id=max; id>=min; id--)); do
     fi
 done
 
-python ../analyze_characters.py "./hanspub_dump_idrange_$min-$max.txt" "./$min-$max.tsv"
+python ../scripts/analyze_characters.py "./hanspub_dump_idrange_$min-$max.txt" "./$min-$max.tsv"
