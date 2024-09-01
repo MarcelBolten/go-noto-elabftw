@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source common_steps.sh
+source scripts/common_steps.sh
 
 # --- execution starts here ---
 # eLabFTWNoto-Regular.ttf
@@ -13,10 +13,10 @@ get_noto_emoji_monochrome &
 wait
 
 echo "Generating eLabFTWNoto-Regular.ttf. Current time: $(date)."
-go_build eLabFTWNoto-Regular.ttf "${eLabFTWNotoRegular[@]}" &
+go_build fonts/eLabFTWNoto-Regular.ttf "${eLabFTWNotoRegular[@]}" &
 
 echo "Generating eLabFTWNoto-Bold.ttf. Current time: $(date)."
-go_build eLabFTWNoto-Bold.ttf "${eLabFTWNotoBold[@]}" &
+go_build fonts/eLabFTWNoto-Bold.ttf "${eLabFTWNotoBold[@]}" &
 
 wait
 
@@ -25,24 +25,24 @@ wait
 create_cjk_sip_subset
 
 echo "Generating eLabFTWNotoSIP-Regular.ttf. Current time: $(date)."
-go_build eLabFTWNotoSIP-Regular.ttf "${eLabFTWNotoSIPRegular[@]}" &
+go_build fonts/eLabFTWNotoSIP-Regular.ttf "${eLabFTWNotoSIPRegular[@]}" &
 
 echo "Generating eLabFTWNotoSIP-Bold.ttf. Current time: $(date)."
-go_build eLabFTWNotoSIP-Bold.ttf "${eLabFTWNotoSIPBold[@]}" &
+go_build fonts/eLabFTWNotoSIP-Bold.ttf "${eLabFTWNotoSIPBold[@]}" &
 
 wait
 
 echo "Generating GoNotoCurrentMono.ttf. Current time: $(date)."
-go_build GoNotoCurrentMono.ttf "${GoNotoCurrentMono[@]}" &
+go_build fonts/GoNotoCurrentMono.ttf "${GoNotoCurrentMono[@]}" &
 
 echo "Generating GoNotoCurrentMonoBold.ttf. Current time: $(date)."
-go_build GoNotoCurrentMonoBold.ttf "${GoNotoCurrentMonoBold[@]}" &
+go_build fonts/GoNotoCurrentMonoBold.ttf "${GoNotoCurrentMonoBold[@]}" &
 
 echo "Generating GoNotoCurrentItalic.ttf. Current time: $(date)."
-go_build GoNotoCurrentItalic.ttf "${GoNotoCurrentItalic[@]}" &
+go_build fonts/GoNotoCurrentItalic.ttf "${GoNotoCurrentItalic[@]}" &
 
 echo "Generating GoNotoCurrentBoldItalic.ttf. Current time: $(date)."
-go_build GoNotoCurrentBoldItalic.ttf "${GoNotoCurrentBoldItalic[@]}" &
+go_build fonts/GoNotoCurrentBoldItalic.ttf "${GoNotoCurrentBoldItalic[@]}" &
 
 wait
 
@@ -55,4 +55,4 @@ drop_vertical_tables NotoSansNushu-Regular.ttf &
 drop_vertical_tables NotoSerifTangut-Regular.ttf &
 wait
 echo "Generating GoNotoAncient.ttf. Current time: $(date)."
-go_build GoNotoAncient.ttf "${GoNotoAncient[@]}"
+go_build fonts/GoNotoAncient.ttf "${GoNotoAncient[@]}"

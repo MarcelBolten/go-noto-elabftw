@@ -7,10 +7,10 @@ python -m pip install -U pip
 python -m pip install -r requirements.txt
 
 # import functions and globals
-source url.sh
-source helper.sh
-source categories.sh
+source scripts/url.sh
+source scripts/helper.sh
+source scripts/categories.sh
 
-mkdir -p ../cache/
+mkdir -p cache/
 
 download_tools
