@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Dumps all the codepoints covered in a given font, one per line"""
 

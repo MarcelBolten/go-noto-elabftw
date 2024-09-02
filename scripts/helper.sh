@@ -25,7 +25,7 @@ download_tools() {
     download_url "https://raw.githubusercontent.com/fonttools/fonttools/main/Snippets/otf2ttf.py"
     download_url "https://unicode.org/Public/UNIDATA/Blocks.txt"
     download_url "https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip"
-    python3 -m zipfile -e Unihan.zip .
+    python -m zipfile -e Unihan.zip .
 
     cd "$OLDPWD"
 }
@@ -38,10 +38,13 @@ get_noto_emoji_monochrome() {
         | tail -c +5 \
         | jq -r '.manifest.fileRefs[] | select(.filename | test("-(?:Bold|Regular)\\.ttf")) | "\(.filename | match("(NotoEmoji-(?:Bold|Regular)\\.ttf)").captures[0].string) \(.url)"' \
         | while read -r filename fonturl; do
-            wget -O "$filename" "$fonturl"
-            echo "Scaling $filename"
-            newname=$(fontforge -script ../scripts/scale_emoji.py "$filename")
-            python ../scripts/rename_font.py "$newname" "Noto Emoji 1000em" "NotoEmoji1000em"
+            # Do not download if file already exists
+            if [[ ! -e "$filename" ]]; then
+                wget -O "$filename" "$fonturl"
+                echo "Scaling $filename"
+                newname=$(fontforge -script ../scripts/scale_emoji.py "$filename")
+                python ../scripts/rename_font.py "$newname" "Noto Emoji 1000em" "NotoEmoji1000em"
+            fi
         done
 
     cd "$OLDPWD"
@@ -55,32 +58,20 @@ edit_font_info() {
 
     with_spaces=$(echo "$without_spaces" | sed -E 's/([a-z])([A-Z])/\1 \2/g')
 
-    python3 ./scripts/rename_font.py "$fontname" "$with_spaces" "$without_spaces"
+    python ./scripts/rename_font.py "$fontname" "$with_spaces" "$without_spaces"
 }
 
 # Font statistics are dumped to stdout in tsv format (tab separated
 # value), redirect stdout to file when called interactively
 collect_font_statistics() {
-    cat << 'eof' > stats.py
-import sys
-from fontTools import ttLib;
-f = ttLib.TTFont(sys.argv[1]);
-try:
-    print('%d\t%d' % (f['maxp'].numGlyphs, f['GSUB'].table.LookupList.LookupCount));
-except:
-    # GSUB doesn't exist
-    print('%d\t%d' % (f['maxp'].numGlyphs, 0));
-f.close()
-eof
     printf "Font\tCodepoints\tGlyphs\tGSUB_Lookup_Count\n"
     set +eu
-    for font in *.*tf; do # *.*tf cache/*.*tf lato/*.*tf
+    for font in fonts/*.?tf cache/*.?tf; do
         printf "$font\t";
-        python3 ./get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
-        python3 ./stats.py "$font";
+        python ./scripts/get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
+        python ./scripts/stats.py "$font";
     done
     set -eu
-    rm -f stats.py
 }
 
 # cannot merge with 'vmtx' and 'vhea' tables.
@@ -121,7 +112,7 @@ create_coptic_subset() {
     "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --unicodes="$codepoints" \
         --output-file="$subset_ttf" "$input_font"
 
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans Coptic Subset" "NotoSansCopticSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans Coptic Subset" "NotoSansCopticSubset"
 
     cd "$OLDPWD"
 }
@@ -145,7 +136,7 @@ _create_thai_subset() {
     "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --unicodes="$codepoints" \
         --output-file="$subset_ttf" "$input_font"
 
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans Thai Subset" "NotoSansThaiSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans Thai Subset" "NotoSansThaiSubset"
 
     cd "$OLDPWD"
 }
@@ -179,7 +170,7 @@ create_duployan_subset() {
             --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
     fi
 
-    python3 ../scripts/rename_font.py "$output_font" "Noto Duployan Subset" "NotoDuployanSubset"
+    python ../scripts/rename_font.py "$output_font" "Noto Duployan Subset" "NotoDuployanSubset"
 
     cd "$OLDPWD"
 }
@@ -205,7 +196,7 @@ _create_tibetan_subset() {
             --glyphs="${glyphs}" "$input_font" --output-file="$output_font"
     fi
 
-    python3 ../scripts/rename_font.py "$output_font" "Noto Tibetan Subset" "NotoTibetanSubset"
+    python ../scripts/rename_font.py "$output_font" "Noto Tibetan Subset" "NotoTibetanSubset"
 
     cd "$OLDPWD"
 }
@@ -241,7 +232,7 @@ create_math_subset() {
             --glyphs-file="$glyphs_file" "$input_font" --output-file="$output_font"
     fi
 
-    python3 ../scripts/rename_font.py "$output_font" "Noto Math Subset" "NotoMathSubset"
+    python ../scripts/rename_font.py "$output_font" "Noto Math Subset" "NotoMathSubset"
 
     cd "$OLDPWD"
 }
@@ -251,7 +242,7 @@ otf2ttf() {
     local subset_otf="$1"
     local subset_ttf="$2"
     echo "converting $subset_otf to $subset_ttf"
-    python3 ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
+    python ./otf2ttf.py --post-format 2 -o "$subset_ttf" "$subset_otf"
 }
 
 # Unihan IICore 2005 is a small subset of CJK (~10k codepoints).
@@ -345,7 +336,7 @@ _create_cjk_subset() {
     # dropping 'vert', 'vhal', 'vkrn', 'vpal', 'vrt2', 'hist'
     features+="aalt,ccmp,dlig,fwid,halt,hwid,kern,liga,locl,palt,pwid"
 
-    if [[ -e "cache/$subset_ttf" ]]; then
+    if [[ -e "$subset_ttf" ]]; then
         echo "Not overwriting existing font $subset_ttf."
         return
     fi
@@ -361,7 +352,7 @@ _create_cjk_subset() {
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc Subset" "NotoSansCJKscSubset"
 
 }
 
@@ -433,7 +424,7 @@ _create_cjk_sip_subset() {
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc SIP Subset" "NotoSansCJKscSIPSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc SIP Subset" "NotoSansCJKscSIPSubset"
 
     cd "$OLDPWD"
 }
@@ -471,7 +462,7 @@ _create_korean_hangul_subset() {
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKkr $is_subset" "NotoSansCJKkr$is_subset"
 }
 
 create_korean_hangul_subset_and_full() {
@@ -534,7 +525,7 @@ _create_japanese_kana_subset() {
         --unicodes="$codepoints" --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
-    python3 ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKjp Subset" "NotoSansCJKjpSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKjp Subset" "NotoSansCJKjpSubset"
 
     cd "$OLDPWD"
 }
@@ -625,7 +616,7 @@ go_build() {
          --verbose --output-file=../"$output" "${input[@]}"
 
     # Copy line metrics from Noto Sans Regular
-    python3 ./substitute_linemetrics.py --output=../"$output" \
+    python ./substitute_linemetrics.py --output=../"$output" \
             ../"$output" NotoSans-Regular.ttf
 
     cd "$OLDPWD"

@@ -11,6 +11,6 @@ source scripts/url.sh
 source scripts/helper.sh
 source scripts/categories.sh
 
-mkdir -p cache/
+mkdir -p cache/ fonts/
 
 download_tools

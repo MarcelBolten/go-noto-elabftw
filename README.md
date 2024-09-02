@@ -36,7 +36,7 @@ If you want to _build_ the fonts yourself, create a virtual environment (venv) a
 you want:
 
 ```
-python3 -m venv venv_fonty
+python -m venv venv_fonty
 source venv_fonty/bin/activate
 ./temporal_fonts.sh  # generates GoNotoAncient.ttf and GoNotoCurrent.ttf
 ./regional_fonts.sh  # generates GoNoto[AfricaMiddleEast|EuropeAmericas|...].ttf

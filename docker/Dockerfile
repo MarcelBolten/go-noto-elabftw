@@ -9,7 +9,7 @@ RUN apk upgrade -U -a && apk add --no-cache \
         w3m \
         fontforge \
         jq \
-    && mkdir -p /go-noto-elabftw/{cache,stats}/ \
+    && mkdir -p /go-noto-elabftw/{cache,stats,fonts}/ \
     && git config --global --add safe.directory /go-noto-elabftw \
     && python -m venv /go-noto-elabftw/venv_fonty --system-site-packages \
     && source /go-noto-elabftw/venv_fonty/bin/activate \

@@ -39,7 +39,7 @@ jobs:
 
       - name: Create eLabFTW fonts
         run: |
-            python3 -m venv venv_fonty
+            python -m venv venv_fonty
             source venv_fonty/bin/activate
             ./scripts/eLab_fonts.sh
             deactivate
@@ -47,8 +47,8 @@ jobs:
       - name: Collect font statistics
         run: |
             source venv_fonty/bin/activate
-            source scrips/helper.sh
-            collect_font_statistics > stats_eLabFTW_fonts.tsv
+            source scripts/helper.sh
+            collect_font_statistics > stats/eLabFTW_fonts.tsv
             deactivate
 
       - name: Upload generated fonts
@@ -56,7 +56,7 @@ jobs:
         with:
           name: eLabFTWNotoFonts.zip
           path: |
-              *.ttf
-              *.otf
-              *.tsv
+              fonts/*.ttf
+              stats/*.tsv
+              UNLICENSE.txt
           if-no-files-found: error
