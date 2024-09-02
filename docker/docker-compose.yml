@@ -3,7 +3,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile
-    image: python:go-noto-elabftw
+    image: go-noto-elabftw
     container_name: go-noto-elabftw
     restart: always
     volumes:
