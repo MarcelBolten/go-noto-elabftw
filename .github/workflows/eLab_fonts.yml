@@ -58,5 +58,5 @@ jobs:
           path: |
               fonts/*.ttf
               stats/*.tsv
-              UNLICENSE.txt
+              LICENSE.txt
           if-no-files-found: error
