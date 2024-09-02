@@ -1,10 +1,10 @@
 services:
-  python:
+  go-noto-elabftw:
     build:
       context: ../
       dockerfile: docker/Dockerfile
     image: python:go-noto-elabftw
-    container_name: python
+    container_name: go-noto-elabftw
     restart: always
     volumes:
       - type: bind
