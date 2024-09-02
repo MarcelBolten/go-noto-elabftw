@@ -124,7 +124,7 @@ eLabFTWNotoARegular=(
     "NotoEmoji1000em-Regular.ttf"
 )
 
-eLabFTWNotoPartBRegular=(
+eLabFTWNotoBRegular=(
     "NotoSans-Regular.ttf"
     "NotoSansCJKscPartBSubset-Regular.ttf"
 )
