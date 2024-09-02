@@ -1,16 +1,7 @@
 # Go Noto eLabFTW
 
 Noto Fonts go [eLabFTW](https://github.com/elabftw/elabftw)! For PDF creation in eLabFTW via mPDF we want to avoid reduantand glyphes as much as possible. Download pan-Unicode, [Noto
-Fonts](https://github.com/googlefonts/noto-fonts) merged according to the time of usage, current or
-ancient.
-
-We offer two types of combined fonts:
-
-1. Time-based:
-   - **GoNotoKurrent** covers pretty much all the scripts in current, widespread use all over the
-     world. This is designed to be a "good enough" font for modern, living scripts without being
-     exhaustive.
-   - **GoNotoAncient** covers all the historical, obsolete and liturgical scripts.
+Fonts](https://github.com/googlefonts/noto-fonts) merged according to the languages supported by eLabFTW.
 
 See [caveats](#caveats) too.
 
@@ -32,14 +23,12 @@ checkmark ✅ (pipeline passed) and under "Artifacts", download "GoNotoTemporalF
 
 ## Build
 
-If you want to _build_ the fonts yourself, create a virtual environment (venv) and run the script
-you want:
+If you want to _build_ the fonts yourself, create a virtual environment (venv) and run the script:
 
 ```
 python -m venv venv_fonty
 source venv_fonty/bin/activate
-./temporal_fonts.sh  # generates GoNotoAncient.ttf and GoNotoCurrent.ttf
-./regional_fonts.sh  # generates GoNoto[AfricaMiddleEast|EuropeAmericas|...].ttf
+./scripts/eLab_fonts.sh
 deactivate
 ```
 
@@ -50,16 +39,13 @@ working state of the repository or downloading stuff again and again.
 
 Latest CI status:
 
-[![Regional fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/regional_fonts.yml)
-
-[![Temporal fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/temporal_fonts.yml)
-
+[![eLabFTW fonts](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/eLab_fonts.yml/badge.svg)](https://github.com/MarcelBolten/go-noto-elabftw/actions/workflows/eLab_fonts.yml)
 
 ## Dependencies
 
 [`fonttools`](https://github.com/fonttools/fonttools/) is automatically fetched and used. The main
 programs we use are `pyftmerge`, `pyftsubset` and `ttx`.
-
+[`fontforge`](https://github.com/fontforge/fontforge/) is automatically added to the docker image and used to scale Noto Emoji (monochrome) from 2048 to 1000 units per em (UPM) so it can be merged with the other fonts.
 
 ## Coverage
 
