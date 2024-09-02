@@ -8,8 +8,8 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    # Runs "At 12:00 everyday"
-    - cron: '0 12 * * *'
+    # Runs "At 12:00 every Sunday"
+    - cron: '0 12 * * Sun'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
