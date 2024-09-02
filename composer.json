@@ -1,7 +1,7 @@
 {
     "name": "marcelbolten/go-noto-elabftw",
     "type": "library",
-    "description": "Noto Font for eLabFTW",
+    "description": "Noto Fonts for eLabFTW",
     "keywords": ["eLabFTW","Noto","Font","electronic lab notebook","ELN"],
     "homepage": "https://github.com/marcelbolten/go-noto-elabftw",
     "license": "UNLICENSE",

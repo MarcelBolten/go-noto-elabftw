@@ -1,0 +1,4 @@
+/docker             export-ignore
+/scripts            export-ignore
+requirenments.txt   export-ignore
+start_docker.sh     export-ignore

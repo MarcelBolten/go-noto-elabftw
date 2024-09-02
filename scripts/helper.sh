@@ -68,8 +68,14 @@ collect_font_statistics() {
     set +eu
     for font in fonts/*.?tf cache/*.?tf; do
         printf "$font\t";
-        python ./scripts/get_codepoints.py "$font" | sort | uniq | tee "$font.codepoints" | wc -l | tr '\n' '\t';
-        python ./scripts/stats.py "$font";
+        python ./scripts/get_codepoints.py "$font" | sort | uniq \
+            | { if [[ "$1" == "codepoints" ]]; then
+                    tee "$font.codepoints"
+                else
+                    cat
+                fi } \
+            | wc -l | tr '\n' '\t'
+        python ./scripts/stats.py "$font"
     done
     set -eu
 }
@@ -399,9 +405,9 @@ create_cjk_subset() {
     cd "$OLDPWD"
 }
 
-_create_cjk_sip_subset() {
+_create_cjk_partB_subset() {
     local input_otf=$1
-    local subset_otf="${input_otf/-/SIPSubset-}"
+    local subset_otf="${input_otf/-/PartBSubset-}"
     local subset_ttf="${subset_otf/otf/ttf}"
     local codepoints+="U+20000-323AF" # Supplementary Ideographic Plane (SIP) + Tertiary Ideographic Plane (TIP) codepoints
     local features="aalt,ccmp,dlig,fwid,halt,hwid,kern,liga,locl,palt,pwid"
@@ -424,14 +430,14 @@ _create_cjk_sip_subset() {
         --output-file="$subset_otf" "$input_otf"
 
     otf2ttf "$subset_otf" "$subset_ttf"
-    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc SIP Subset" "NotoSansCJKscSIPSubset"
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans CJKsc Part B Subset" "NotoSansCJKscPartBSubset"
 
     cd "$OLDPWD"
 }
 
-create_cjk_sip_subset() {
-    _create_cjk_sip_subset NotoSansCJKsc-Regular.otf &
-    _create_cjk_sip_subset NotoSansCJKsc-Bold.otf &
+create_cjk_partB_subset() {
+    _create_cjk_partB_subset NotoSansCJKsc-Regular.otf &
+    _create_cjk_partB_subset NotoSansCJKsc-Bold.otf &
     wait
 }
 
