@@ -66,11 +66,11 @@ and can be downloaded in build Artifacts.
 
 Statistics below correspond to release v0.1.
 
-| eLabFTW Noto Font         | Unicode blocks | Characters | Glyphs |
-|---------------------------|---------------:|-----------:|-------:|
-| eLabFTWNotoA.ttf          |          42875 |      64414 |    116 |
-| eLabFTWNotoB.ttf          |          13425 |      15116 |     52 |
-| eLabFTWNotoAncient.ttf    |          19339 |      34793 |   1616 |
+| eLabFTW Noto Font         | Characters     | Glyphs     |
+|---------------------------|---------------:|-----------:|
+| eLabFTWNotoA.ttf          |          42875 |      64414 |
+| eLabFTWNotoB.ttf          |          13425 |      15116 |
+| eLabFTWNotoAncient.ttf    |          19339 |      34793 |
 
 Note that eLabFTWNotoA includes statistics of:
 
