@@ -21,7 +21,7 @@ go_build fonts/eLabFTWNotoA-Bold.ttf "${eLabFTWNotoABold[@]}" &
 wait
 
 # eLabFTWNotoB-{Regular,Bold}.ttf
-create_cjk_sip_subset
+create_cjk_partB_subset
 
 echo "Generating eLabFTWNotoB-Regular.ttf. Current time: $(date)."
 go_build fonts/eLabFTWNotoB-Regular.ttf "${eLabFTWNotoBRegular[@]}" &
