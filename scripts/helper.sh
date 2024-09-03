@@ -52,13 +52,14 @@ get_noto_emoji_monochrome() {
 
 # Rename font metadata
 edit_font_info() {
-    local fontname="$1"
+    local fontlocation="$1"
+    local fontname=$(basename "$fontlocation")
     local without_spaces="${fontname%%.*}"
     local with_spaces=''
 
     with_spaces=$(echo "$without_spaces" | sed -E 's/([a-z])([A-Z])/\1 \2/g')
 
-    python ./scripts/rename_font.py "$fontname" "$with_spaces" "$without_spaces"
+    python ./scripts/rename_font.py "$fontlocation" "$with_spaces" "$without_spaces"
 }
 
 # Font statistics are dumped to stdout in tsv format (tab separated
