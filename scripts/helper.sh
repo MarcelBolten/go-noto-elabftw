@@ -41,10 +41,10 @@ get_noto_emoji_monochrome() {
             # Do not download if file already exists
             if [[ ! -e "$filename" ]]; then
                 wget -O "$filename" "$fonturl"
-                echo "Scaling $filename"
-                newname=$(fontforge -script ../scripts/scale_emoji.py "$filename")
-                python ../scripts/rename_font.py "$newname" "Noto Emoji 1000em" "NotoEmoji1000em"
             fi
+            echo "Scaling $filename"
+            newname=$(fontforge -script ../scripts/scale_emoji.py "$filename")
+            python ../scripts/rename_font.py "$newname" "Noto Emoji 1000em" "NotoEmoji1000em"
         done
 
     cd "$OLDPWD"
