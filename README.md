@@ -68,7 +68,7 @@ Statistics below correspond to release v0.1.
 
 | eLabFTW Noto Font         | Characters     | Glyphs     |
 |---------------------------|---------------:|-----------:|
-| eLabFTWNotoA.ttf          |          42875 |      64414 |
+| eLabFTWNotoA.ttf          |          43751 |      65480 |
 | eLabFTWNotoB.ttf          |          13425 |      15116 |
 | eLabFTWNotoAncient.ttf    |          19339 |      34793 |
 
