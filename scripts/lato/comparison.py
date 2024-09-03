@@ -1,5 +1,5 @@
 def read_code_blocks():
-    with open('../cache/Blocks.txt') as blocks_file:
+    with open('cache/Blocks.txt') as blocks_file:
         blocks = {}
         for line in blocks_file:
             if line.strip() and not line.startswith('#'):
@@ -52,14 +52,14 @@ def print_ranges(ranges):
             block_cache += f"{start:06X}-{end:06X}, length: {end-start+1}\n"
     print(block_cache.strip())
 
-lato = "eLabFTWNoto-Regular.ttf"
+lato = "fonts/eLabFTWNotoA-Regular.ttf"
 #lato = "NotoSans-Regular.ttf"
 lato_codepoints = read_codepoints_from_file(lato + ".codepoints")
 
 fonts = [
-    #"Lato-Regular_v2.ttf",
+    #"scripts/lato/Lato-Regular_v2.ttf",
     #"NotoSans-Regular.ttf",
-    "DejaVuSans.ttf",
+    "scripts/lato/DejaVuSans.ttf",
     #"Sun-ExtA.ttf",
     #"NotoSansCJKsc-Regular.otf",
 ]
