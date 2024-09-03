@@ -24,6 +24,70 @@ declare -x eLabFTWNotoBoldItalic
 #declare -x GoNotoCurrentSerifItalic
 #declare -x GoNotoCurrentSerifBoldItalic
 
+eLabFTWNotoARegular=(
+    # It's recommended to put NotoSans-Regular.ttf as the first element in the
+    # list to maximize the amount of meta data retained in the final merged font.
+    "NotoSans-Regular.ttf"
+    "NotoSansArmenian-Regular.ttf"
+    "NotoSansHebrew-Regular.ttf"
+    "NotoSansGeorgian-Regular.ttf"
+    "NotoSansArabicSubset-Regular.ttf"
+    "NotoSansCopticSubset-Regular.ttf"
+    "NotoSansThaiSubset-Regular.ttf"
+    "NotoSansCJKjpSubset-Regular.ttf"
+    "NotoSansCJKkrFull-Regular.ttf"
+    "NotoSansCJKscSubset-Regular.ttf"
+    "NotoSansSymbols-Regular.ttf"
+    "NotoSansSymbols2-Regular.ttf"
+    "NotoSansMathSubset-Regular.ttf"
+    "NotoEmoji1000em-Regular.ttf"
+)
+
+eLabFTWNotoBRegular=(
+    "NotoSans-Regular.ttf"
+    "NotoSansCJKscPartBSubset-Regular.ttf"
+)
+
+eLabFTWNotoABold=(
+    # It's recommended to put NotoSans-Bold.ttf as the first element in the
+    # list to maximize the amount of meta data retained in the final merged font.
+    "NotoSans-Bold.ttf"
+    "NotoSansArmenian-Bold.ttf"
+    "NotoSansHebrew-Bold.ttf"
+    "NotoSansGeorgian-Bold.ttf"
+    "NotoSansArabicSubset-SemiBold.ttf"
+    "NotoSansCopticSubset-Regular.ttf" # No bold
+    "NotoSansThaiSubset-Bold.ttf"
+    "NotoSansCJKjpSubset-Bold.ttf"
+    "NotoSansCJKkrFull-Bold.ttf"
+    "NotoSansCJKscSubset-Bold.ttf"
+    "NotoSansSymbols-Bold.ttf"
+    "NotoSansSymbols2-Regular.ttf" # No bold
+    "NotoSansMathSubset-Regular.ttf" # No bold
+    "NotoEmoji1000em-Bold.ttf"
+)
+
+eLabFTWNotoBBold=(
+    "NotoSans-Bold.ttf"
+    "NotoSansCJKscPartBSubset-Bold.ttf"
+)
+
+eLabFTWNotoMono=(
+    "NotoSansMono-Regular.ttf"
+)
+
+eLabFTWNotoMonoBold=(
+    "NotoSansMono-Bold.ttf"
+)
+
+eLabFTWNotoItalic=(
+    "NotoSans-Italic.ttf"
+)
+
+eLabFTWNotoBoldItalic=(
+    "NotoSans-BoldItalic.ttf"
+)
+
 eLabFTWNotoAncient=(
     "NotoSans-Regular.ttf"
     # 'GoNotoAsiaHistorical.ttf': [
@@ -107,62 +171,6 @@ eLabFTWNotoAncient=(
     "NotoSansMarchen-Regular.ttf"
     "NotoSansNushuSubset-Regular.ttf"  # No vertical
     "NotoSerifTangutSubset-Regular.ttf" # No vertical
-)
-
-eLabFTWNotoARegular=(
-    # It's recommended to put NotoSans-Regular.ttf as the first element in the
-    # list to maximize the amount of meta data retained in the final merged font.
-    "NotoSans-Regular.ttf"
-    "NotoSansCopticSubset-Regular.ttf"
-    "NotoSansThaiSubset-Regular.ttf"
-    "NotoSansCJKjpSubset-Regular.ttf"
-    "NotoSansCJKkrFull-Regular.ttf"
-    "NotoSansCJKscSubset-Regular.ttf"
-    "NotoSansSymbols-Regular.ttf"
-    "NotoSansSymbols2-Regular.ttf"
-    "NotoSansMathSubset-Regular.ttf"
-    "NotoEmoji1000em-Regular.ttf"
-)
-
-eLabFTWNotoBRegular=(
-    "NotoSans-Regular.ttf"
-    "NotoSansCJKscPartBSubset-Regular.ttf"
-)
-
-eLabFTWNotoABold=(
-    # It's recommended to put NotoSans-Bold.ttf as the first element in the
-    # list to maximize the amount of meta data retained in the final merged font.
-    "NotoSans-Bold.ttf"
-    "NotoSansCopticSubset-Regular.ttf" # No bold
-    "NotoSansThaiSubset-Bold.ttf"
-    "NotoSansCJKjpSubset-Bold.ttf"
-    "NotoSansCJKkrFull-Bold.ttf"
-    "NotoSansCJKscSubset-Bold.ttf"
-    "NotoSansSymbols-Bold.ttf"
-    "NotoSansSymbols2-Regular.ttf" # No bold
-    "NotoSansMathSubset-Regular.ttf" # No bold
-    "NotoEmoji1000em-Bold.ttf"
-)
-
-eLabFTWNotoBBold=(
-    "NotoSans-Bold.ttf"
-    "NotoSansCJKscPartBSubset-Bold.ttf"
-)
-
-eLabFTWNotoMono=(
-    "NotoSansMono-Regular.ttf"
-)
-
-eLabFTWNotoMonoBold=(
-    "NotoSansMono-Bold.ttf"
-)
-
-eLabFTWNotoItalic=(
-    "NotoSans-Italic.ttf"
-)
-
-eLabFTWNotoBoldItalic=(
-    "NotoSans-BoldItalic.ttf"
 )
 
 # GoNotoCurrentRegular1=(

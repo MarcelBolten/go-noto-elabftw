@@ -153,6 +153,43 @@ create_thai_subset() {
     wait
 }
 
+# create Arabic subset to match DejaVu
+_create_arabic_subset() {
+    local input_font=$1
+    local subset_ttf="${input_font/-/Subset-}"
+    local codepoints=""
+
+    codepoints+="U+0600-06FF," # Arabic (252)
+    #codepoints+="U+0750-077F," # Arabic Supplement (48)
+    # part of (99) Arabic Presentation Forms-A (631)
+    codepoints+="U+FB52-FBAF,"
+    codepoints+="U+FBD3-FBFF,"
+    codepoints+="U+FE70-FEFF," # Arabic Presentation Forms-B (102)
+
+    if [[ -e "cache/$subset_ttf" ]]; then
+        echo "Not overwriting existing font $subset_ttf."
+        return
+    fi
+
+    cd cache/
+
+    download_url "${font_urls[$input_font]}"
+
+    echo "Generating Arabic font $subset_ttf. Current time: $(date)."
+    "$VIRTUAL_ENV"/bin/pyftsubset --passthrough-tables --unicodes="$codepoints" \
+        --output-file="$subset_ttf" "$input_font"
+
+    python ../scripts/rename_font.py "$subset_ttf" "Noto Sans Arabic Subset" "NotoSansArabicSubset"
+
+    cd "$OLDPWD"
+}
+
+create_arabic_subset() {
+    _create_arabic_subset NotoSansArabic-Regular.ttf &
+    _create_arabic_subset NotoSansArabic-SemiBold.ttf &
+    wait
+}
+
 # create Duployan subset so that GSUB is not overflow'ed.
 create_duployan_subset() {
     local input_font=NotoSansDuployan-Regular.ttf

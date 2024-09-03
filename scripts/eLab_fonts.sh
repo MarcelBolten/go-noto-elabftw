@@ -9,6 +9,7 @@ create_japanese_kana_subset &
 create_math_subset &
 create_thai_subset &
 create_coptic_subset &
+create_arabic_subset &
 get_noto_emoji_monochrome &
 wait
 
