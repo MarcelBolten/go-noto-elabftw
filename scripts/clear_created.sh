@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 rm fonts/{*.ttf,*.codepoints}
-rm -R cache/*
+rm cache/{*1000em*,*Subset*,*Full*}
